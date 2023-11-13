@@ -1,4 +1,4 @@
-import LocationService from '../src/LocationService.ts'
+import LocationService from '../src/model/LocationService.ts'
 
 describe('LocationService', () => {
 /*  let locationService
@@ -10,7 +10,7 @@ describe('LocationService', () => {
   it('should throw an error if country code is not provided', () => {
     expect(() => {
       const locationService = new LocationService()
-      locationService.fetchLocationData('London').toThrow()
+      locationService.fetchLocationData('London').toThrow(NoCountryCodeError)
     })
   })
 })
