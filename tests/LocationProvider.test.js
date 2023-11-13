@@ -8,7 +8,7 @@ describe('LocationProvider', () => {
     locationProvider = new LocationProvider()
   })
   it('fetches and returns latitude and longitude of first item', async () => {
-    global.fetch = jest.fn(() => {
+    global.fetch = jest.fn(() =>
       Promise.resolve({
         /**
          * Mocking the json method of the response object.
@@ -52,12 +52,12 @@ describe('LocationProvider', () => {
           ]
         )
       })
-    })
+    )
     const city = 'Motala'
     const countryCode = 'SE'
     const expected = { lat: 58.5420395, lon: 15.041261 }
     const actual = await locationProvider.fetchLocationData(city, countryCode)
     expect(fetch).toHaveBeenCalledWith(`http://api.openweathermap.org/geo/1.0/direct?q=${city},,${countryCode}&limit=5&appid=${process.env.API_KEY}`)
-    expect(actual).toBe(expected)
+    expect(actual).toEqual(expected)
   })
 })
