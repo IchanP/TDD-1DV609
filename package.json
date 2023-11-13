@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "jest --verbose --coverage"
+    "test": "npx --node-options=--experimental-vm-modules jest --verbose --coverage"
   },
   "devDependencies": {
     "@lnu/eslint-config": "^1.1.10",
