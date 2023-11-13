@@ -25,4 +25,4 @@ serve
 *.sln
 *.sw?
 
-
+.env
