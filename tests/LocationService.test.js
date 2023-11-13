@@ -9,9 +9,7 @@ describe('LocationService', () => {
   }) */
 
   it('should throw an error if country code is not provided', () => {
-    expect(() => {
-      const locationService = new LocationService()
-      expect(() => locationService.fetchLocationData('London')).toThrow(NoCountryCodeError)
-    })
+    const locationService = new LocationService()
+    expect(() => locationService.fetchLocationData('London')).toThrow(NoCountryCodeError)
   })
 })
