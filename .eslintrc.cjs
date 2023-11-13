@@ -5,6 +5,7 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   root: true,
   rules: {
-    'no-undef': 'off'
+    'no-undef': 'off',
+    'jsdoc/no-undefined-types': 'off'
   }
 }
