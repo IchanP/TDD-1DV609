@@ -35,9 +35,9 @@ describe('LocationService', () => {
     expect(fetchLocationDataMock).toHaveBeenCalled()
   })
 
-  /* it('fetchlocationdata should return only 2 decimals on lat and long', () => {
-    const expected = { lat: 58.54, lon: 15.04 }
+  it('fetchlocationdata should return only 2 decimals on lat and long', () => {
+    const expected = { lat: 10.13, lon: 42.41 }
     const actual = sut.fetchLocationData(city, countryCode)
     expect(actual).toEqual(expected)
-  }) */
+  })
 })
