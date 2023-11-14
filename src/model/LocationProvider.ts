@@ -25,13 +25,22 @@ export class LocationProvider {
    * @returns {Promise<LocationData>} - The latitude and longitude of the city.
    */
   async fetchLocationData (): Promise<LocationData> {
-    const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${this.#cityName},,${this.#countryCode}&limit=5&appid=${process.env.API_KEY}`)
-    this.#checkResponse(response)
-    const data : Array<CityApiResponse> = await response.json()
-    if (data.length === 0) {
-      throw new InvalidAPIParamaterError()
-    }
+    const data = await this.#fetchCityData()
     return this.#extractLatandLon(data, 0)
+  }
+
+  /**
+   * Fetches city data from the API.
+   *
+   * @throws {InvalidAPIParamaterError} - Throws an error if the API returns no results.
+   * @returns {Promise<Array<CityApiResponse>>} - The response data from the API.
+   */
+  async #fetchCityData (): Promise<Array<CityApiResponse>> {
+    const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${this.#cityName},,${this.#countryCode}&limit=5&appid=${process.env.API_KEY}`)
+    this.#validateResponse(response)
+    const data : Array<CityApiResponse> = await response.json()
+    this.#validateResultsExist(data)
+    return data
   }
 
   /**
@@ -40,9 +49,21 @@ export class LocationProvider {
    * @param {Response} response - The response from the API call.
    * @throws {APIError} - Throws an error if the response was not ok.
    */
-  #checkResponse (response: Response): void {
+  #validateResponse (response: Response): void {
     if (!response.ok) {
       throw new APIError()
+    }
+  }
+
+  /**
+   * Validates that the results exist in the data array.
+   *
+   * @param {Array<CityApiResponse>} data - The data returned from the API.
+   * @throws {InvalidAPIParamaterError} - Throws an error if the results do not exist.
+   */
+  #validateResultsExist (data: Array<CityApiResponse>) {
+    if (data.length === 0) {
+      throw new InvalidAPIParamaterError()
     }
   }
 
