@@ -12,7 +12,6 @@ export class LocationService {
    * @param {string} countryCode - The country code in ISO 3166 alpha-2 format https://www.iso.org/obp/ui/#search/code/
    */
   fetchLocationData (cityName: string, countryCode: string): any {
-    console.log(cityName)
     if (!countryCode) {
       throw new NoCountryCodeError()
     }
