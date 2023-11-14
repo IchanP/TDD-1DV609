@@ -5,15 +5,26 @@ import { APIError } from './Errors/APIError'
  * Wrapper for the WeatherMap GeoLocation API
  */
 export class LocationProvider {
+  #cityName: string
+  #countryCode: string
+  /**
+   * Initializes fields of the class.
+   *
+   * @param {string} cityName - The name of the city for which to fetch location data.
+   * @param {string} countryCode - The country code in ISO 3166 alpha-2 format https://www.iso.org/obp/ui/#search/code/
+   */
+  constructor (cityName: string, countryCode: string) {
+    this.#cityName = cityName
+    this.#countryCode = countryCode
+  }
+
   /**
    * Fetches location data from the OpenWeatherMap API.
    *
-   * @param {string} cityName - The name of the city. Example: 'London'
-   * @param {string} countryCode - The country code in ISO 3166 alpha-2 format https://www.iso.org/obp/ui/#search/code/
    * @returns {Promise<LocationData>} - The
    */
-  async fetchLocationData (cityName: string, countryCode: string): Promise<LocationData> {
-    const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName},,${countryCode}&limit=5&appid=${process.env.API_KEY}`)
+  async fetchLocationData (): Promise<LocationData> {
+    const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${this.#cityName},,${this.#countryCode}&limit=5&appid=${process.env.API_KEY}`)
     this.#checkResponse(response)
     const data : Array<CityApiResponse> = await response.json()
     return this.#extractLatandLon(data, 0)
