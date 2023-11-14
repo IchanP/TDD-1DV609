@@ -1,6 +1,7 @@
 import { LocationProvider } from '../src/model/LocationProvider.ts'
 import { jest } from '@jest/globals'
 import 'dotenv/config'
+import { APIError } from '../src/model/Errors/APIError.ts'
 
 const city = 'Motala'
 const countryCode = 'SE'
@@ -15,6 +16,7 @@ describe('LocationProvider', () => {
   it('fetches and returns latitude and longitude of first item', async () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({
+        ok: true,
         /**
          * Mocking the json method of the response object.
          *
@@ -65,7 +67,7 @@ describe('LocationProvider', () => {
   })
 
   it('throws an APIError when ok status is false on fetch', async () => {
-    global.fetch.mockImplementation(() =>
+    global.fetch = jest.fn(() =>
       Promise.resolve({
         ok: false,
         /**
