@@ -1,4 +1,5 @@
 import { NoCountryCodeError } from './Errors/NoCountryCodeError'
+import { LocationProvider } from './LocationProvider'
 
 /**
  * Bridge between the UI and the LocationFetcher class.
@@ -15,5 +16,7 @@ export class LocationService {
     if (!countryCode) {
       throw new NoCountryCodeError()
     }
+    const locationProvider = new LocationProvider(cityName, countryCode)
+    locationProvider.fetchLocationData()
   }
 }
