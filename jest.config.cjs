@@ -4,5 +4,11 @@ module.exports = {
   testEnvironment: 'jsdom',
   testMatch: ['**/tests/**/*.test.js'],
   verbose: true,
-  collectCoverage: true
+  collectCoverage: true,
+  globals: {
+    'ts-jest': {
+      diagnostics: true, // Enables type checking in tests
+      tsconfig: './tsconfig.json'
+    }
+  }
 }

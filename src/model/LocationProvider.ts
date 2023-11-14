@@ -21,7 +21,7 @@ export class LocationProvider {
   /**
    * Fetches location data from the OpenWeatherMap API.
    *
-   * @returns {Promise<LocationData>} - The
+   * @returns {Promise<LocationData>} - The latitude and longitude of the city.
    */
   async fetchLocationData (): Promise<LocationData> {
     const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${this.#cityName},,${this.#countryCode}&limit=5&appid=${process.env.API_KEY}`)
