@@ -2,6 +2,7 @@ import { LocationProvider } from '../src/model/LocationProvider.ts'
 import { jest } from '@jest/globals'
 import 'dotenv/config'
 import { APIError } from '../src/model/Errors/APIError.ts'
+import { InvalidAPIParamaterError } from '../src/model/Errors/InvalidAPIParamaterError.ts'
 
 const city = 'Motala'
 const countryCode = 'SE'

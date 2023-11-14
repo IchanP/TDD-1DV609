@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import { APIError } from './Errors/APIError'
+import { InvalidAPIParamaterError } from './Errors/InvalidAPIParamaterError'
 
 /**
  * Wrapper for the WeatherMap GeoLocation API
@@ -27,6 +28,9 @@ export class LocationProvider {
     const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${this.#cityName},,${this.#countryCode}&limit=5&appid=${process.env.API_KEY}`)
     this.#checkResponse(response)
     const data : Array<CityApiResponse> = await response.json()
+    if (data.length === 0) {
+      throw new InvalidAPIParamaterError()
+    }
     return this.#extractLatandLon(data, 0)
   }
 
