@@ -10,7 +10,7 @@ describe('LocationProvider', () => {
   let locationProvider
 
   beforeAll(() => {
-    locationProvider = new LocationProvider()
+    locationProvider = new LocationProvider(city, countryCode)
   })
 
   it('fetches and returns latitude and longitude of first item', async () => {
@@ -49,14 +49,14 @@ describe('LocationProvider', () => {
       }
     ], true)
     const expected = { lat: 58.5420395, lon: 15.041261 }
-    const actual = await locationProvider.fetchLocationData(city, countryCode)
+    const actual = await locationProvider.fetchLocationData()
     expectApiCall()
     expect(actual).toEqual(expected)
   })
 
   it('throws an APIError when ok status is false on fetch', async () => {
     mockFetch({}, false)
-    expect(async () => await locationProvider.fetchLocationData(city, countryCode)).rejects.toThrow(APIError)
+    expect(async () => await locationProvider.fetchLocationData()).rejects.toThrow(APIError)
     expectApiCall()
   })
 })
