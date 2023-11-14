@@ -1,6 +1,6 @@
 /* eslint-disable import/first */
 import { LocationService } from '../src/model/LocationService.ts'
-import { NoCountryCodeError } from '../src/model/Errors/NoCountryCodeError.ts'
+import { NoCountryCodeError as InvalidCountryCodeError } from '../src/model/Errors/NoCountryCodeError.ts'
 import { jest } from '@jest/globals'
 import { LocationProvider } from '../src/model/LocationProvider.ts'
 
@@ -19,7 +19,15 @@ describe('LocationService', () => {
   })
 
   it('fetchlocationdata should throw an error if country code is not provided', () => {
-    expect(() => sut.fetchLocationData(city)).toThrow(NoCountryCodeError)
+    expect(() => sut.fetchLocationData(city)).toThrow(InvalidCountryCodeError)
+  })
+
+  it('fetchlocationdata should throw error if country code is longer than 2 characters', () => {
+    expect(() => sut.fetchLocationData(city, 'XXX')).toThrow(InvalidCountryCodeError)
+  })
+
+  it('fetchlocationdata should throw error if country code is shorter than 2 characters', () => {
+    expect(() => sut.fetchLocationData(city, 'X')).toThrow(InvalidCountryCodeError)
   })
 
   it('fetchlocationData should call fetchLocationData on LocationProvider', () => {
