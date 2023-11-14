@@ -1,6 +1,6 @@
 /* eslint-disable import/first */
 import { LocationService } from '../src/model/LocationService.ts'
-import { NoCountryCodeError as InvalidCountryCodeError } from '../src/model/Errors/NoCountryCodeError.ts'
+import { InvalidCountryCodeError } from '../src/model/Errors/InvalidCountryCodeError.ts'
 import { jest } from '@jest/globals'
 import { LocationProvider } from '../src/model/LocationProvider.ts'
 
