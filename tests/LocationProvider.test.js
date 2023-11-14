@@ -54,9 +54,15 @@ describe('LocationProvider', () => {
     expect(actual).toEqual(expected)
   })
 
-  it('throws an APIError when ok status is false on fetch', async () => {
+  it('throws an APIError when ok status is false on fetch', () => {
     mockFetch({}, false)
     expect(async () => await sut.fetchLocationData()).rejects.toThrow(APIError)
+    expectApiCall()
+  })
+
+  it('throws an InvalidAPIParamaterError if the API returns an empty array', () => {
+    mockFetch([])
+    expect(async () => await sut.fetchLocationData()).rejects.toThrow(InvalidAPIParamaterError)
     expectApiCall()
   })
 })
