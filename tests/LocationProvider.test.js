@@ -14,52 +14,40 @@ describe('LocationProvider', () => {
   })
 
   it('fetches and returns latitude and longitude of first item', async () => {
-    global.fetch = jest.fn(() =>
-      Promise.resolve({
-        ok: true,
-        /**
-         * Mocking the json method of the response object.
-         *
-         * @returns {Promise} - A promise that resolves to an array of objects.
-         */
-        json: () => Promise.resolve(
-          [
-            {
-              name: 'Motala',
-              local_names: {
-                he: 'מוטלה',
-                ru: 'Мутала',
-                sv: 'Motala'
-              },
-              lat: 58.5420395,
-              lon: 15.041261,
-              country: 'SE'
-            },
-            {
-              name: 'Motala kommun',
-              local_names: {
-                sv: 'Motala kommun'
-              },
-              lat: 58.55,
-              lon: 15.166667,
-              country: 'SE'
-            },
-            {
-              name: 'Motala',
-              lat: 58.9332511,
-              lon: 15.6663872,
-              country: 'SE'
-            },
-            {
-              name: 'Motala',
-              lat: 57.3593404,
-              lon: 15.3290523,
-              country: 'SE'
-            }
-          ]
-        )
-      })
-    )
+    mockFetch([
+      {
+        name: 'Motala',
+        local_names: {
+          he: 'מוטלה',
+          ru: 'Мутала',
+          sv: 'Motala'
+        },
+        lat: 58.5420395,
+        lon: 15.041261,
+        country: 'SE'
+      },
+      {
+        name: 'Motala kommun',
+        local_names: {
+          sv: 'Motala kommun'
+        },
+        lat: 58.55,
+        lon: 15.166667,
+        country: 'SE'
+      },
+      {
+        name: 'Motala',
+        lat: 58.9332511,
+        lon: 15.6663872,
+        country: 'SE'
+      },
+      {
+        name: 'Motala',
+        lat: 57.3593404,
+        lon: 15.3290523,
+        country: 'SE'
+      }
+    ], true)
     const expected = { lat: 58.5420395, lon: 15.041261 }
     const actual = await locationProvider.fetchLocationData(city, countryCode)
     expectApiCall()
@@ -67,18 +55,7 @@ describe('LocationProvider', () => {
   })
 
   it('throws an APIError when ok status is false on fetch', async () => {
-    global.fetch = jest.fn(() =>
-      Promise.resolve({
-        ok: false,
-        /**
-         * Mocks the json method of the response object.
-         *
-         * @returns {Promise} - Returns an empty promise.
-         */
-        json: () => Promise.resolve({})
-      })
-    )
-
+    mockFetch({}, false)
     expect(async () => await locationProvider.fetchLocationData(city, countryCode)).rejects.toThrow(APIError)
     expectApiCall()
   })
@@ -89,4 +66,24 @@ describe('LocationProvider', () => {
  */
 function expectApiCall () {
   expect(fetch).toHaveBeenCalledWith(`http://api.openweathermap.org/geo/1.0/direct?q=${city},,${countryCode}&limit=5&appid=${process.env.API_KEY}`)
+}
+
+/**
+ * Mocks the fetch function.
+ *
+ * @param {object} jsonData - The json data to be mocked.
+ * @param {boolean} ok - Whether response is ok or not.
+ */
+function mockFetch (jsonData, ok = true) {
+  global.fetch = jest.fn(() =>
+    Promise.resolve({
+      ok,
+      /**
+       * Mocks the json method of the response object.
+       *
+       * @returns {Promise} - The json data.
+       */
+      json: () => Promise.resolve(jsonData)
+    })
+  )
 }

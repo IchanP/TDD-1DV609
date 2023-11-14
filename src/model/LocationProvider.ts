@@ -14,11 +14,21 @@ export class LocationProvider {
    */
   async fetchLocationData (cityName: string, countryCode: string): Promise<LocationData> {
     const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName},,${countryCode}&limit=5&appid=${process.env.API_KEY}`)
+    this.#checkResponse(response)
+    const data : Array<CityApiResponse> = await response.json()
+    return this.#extractLatandLon(data, 0)
+  }
+
+  /**
+   * Checks whether the response was ok.
+   *
+   * @param {Response} response - The response from the API call.
+   * @throws {APIError} - Throws an error if the response was not ok.
+   */
+  #checkResponse (response: Response): void {
     if (!response.ok) {
       throw new APIError()
     }
-    const data : Array<CityApiResponse> = await response.json()
-    return this.#extractLatandLon(data, 0)
   }
 
   /**
