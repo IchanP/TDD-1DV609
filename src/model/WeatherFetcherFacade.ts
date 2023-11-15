@@ -19,6 +19,6 @@ export class WeatherFetcherFacade {
    * @param {string} countryCode - The country code in ISO 3166 alpha-2 format https://www.iso.org/obp/ui/#search/code/
    */
   fetchWeatherData (cityName: string, countryCode: string): any {
-    this.#locationService.fetchLocationData(cityName, countryCode)
+    return this.#locationService.fetchLocationData(cityName, countryCode)
   }
 }
