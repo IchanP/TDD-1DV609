@@ -9,4 +9,10 @@ describe('WeatherController', () => {
     const weatherController = new WeatherController(cityInput, countryCodeInput, submitButton)
     expect(weatherController).toBeDefined()
   })
+  it('should have properties for cityInput, countryCodeInput and submitButton', () => {
+    const weatherController = new WeatherController(cityInput, countryCodeInput, submitButton)
+    expect(weatherController.cityInput).toBeDefined()
+    expect(weatherController.countryCodeInput).toBeDefined()
+    expect(weatherController.submitButton).toBeDefined()
+  })
 })
