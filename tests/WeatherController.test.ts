@@ -4,9 +4,7 @@ import { LocationService } from '../src/model/LocationService.ts'
 import { jest } from '@jest/globals'
 
 jest.mock('../src/model/LocationService.ts')
-
-const fetchWeatherDataMock = jest.spyOn(WeatherFetcherFacade.prototype, 'fetchWeatherData')
-  .mockImplementation(() => Promise.resolve())
+jest.mock('../src/model/WeatherFetcherFacade.ts')
 
 const cityInput = document.createElement('input')
 const countryCodeInput = document.createElement('input')
@@ -32,11 +30,12 @@ describe('WeatherController', () => {
     expect(sut.locationService).toBeDefined()
   })
   it('should call fetchWeatherData on WeatherFetcherFacade with values from cityInput and countryCodeInput', () => {
+    const mockFetchWeatherData = jest.spyOn(WeatherFetcherFacade.prototype, 'fetchWeatherData')
     const city = 'Motala'
     const countryCode = 'SE'
     cityInput.value = city
     countryCodeInput.value = countryCode
     sut.fetchWeatherData()
-    expect(fetchWeatherDataMock).toHaveBeenCalledWith(city, countryCode)
+    expect(mockFetchWeatherData).toHaveBeenCalledWith(city, countryCode)
   })
 })
