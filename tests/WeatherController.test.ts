@@ -15,7 +15,7 @@ let sut : WeatherController
 
 describe('WeatherController', () => {
   beforeAll(() => {
-    sut = new WeatherController(cityInput, countryCodeInput, submitButton)
+    sut = new WeatherController(cityInput, countryCodeInput, submitButton, new LocationService())
   })
 
   it('constructor should accept three elements as argument', () => {
