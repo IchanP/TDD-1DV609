@@ -4,7 +4,7 @@ import { LocationProvider } from './LocationProvider'
 /**
  * Bridge between the UI and the LocationFetcher class.
  */
-export class LocationService {
+export class LocationService implements ILocationService {
   /**
    * Fetches location data from the OpenWeatherMap API.
    *

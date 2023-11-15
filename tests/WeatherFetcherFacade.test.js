@@ -1,3 +1,6 @@
+import { WeatherFetcherFacade } from '../src/model/WeatherFetcherFacade'
+import { jest } from '@jest/globals'
+
 let sut
 describe('Fetches longitude and latitude', () => {
   let serviceLocationDataStub
@@ -8,7 +11,7 @@ describe('Fetches longitude and latitude', () => {
   it('should call LocationService', () => {
     const city = 'Motala'
     const countryCode = 'SE'
-    sut.fethWeatherData(city, countryCode)
+    sut.fetchWeatherData(city, countryCode)
     expect(serviceLocationDataStub).toHaveBeenCalled()
   })
 })
