@@ -21,6 +21,9 @@
 #countrycode-input {
     margin: 0 5px; 
 }
+#countrycode-input {
+    width: 100px; 
+}
 
 #gofetch-button {
     margin-top: 20px; 

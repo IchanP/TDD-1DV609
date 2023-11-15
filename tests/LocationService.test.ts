@@ -7,16 +7,16 @@ import { LocationProvider } from '../src/model/LocationProvider.ts'
 // Initial mock implementation of fetchFirstLatAndLong for 4th test case in this file.
 let validFetchLocationDataMock = mockFetchFirstLatAndLong(10.134123, 42.41281380)
 
-let sut
+let sut : LocationService
 const city = 'AnyCity'
 const countryCode = 'XX'
-describe('LocationServic fetchLocationData error and calls', () => {
+describe('LocationService fetchLocationData error and calls', () => {
   beforeAll(() => {
     sut = new LocationService()
   })
 
   it('fetchlocationdata should throw an error if country code is not provided', async () => {
-    await expectAsyncFetchThrowOnInvalidCountry()
+    await expectAsyncFetchThrowOnInvalidCountry('')
   })
 
   it('fetchlocationdata should throw error if country code is longer than 2 characters', async () => {
@@ -72,10 +72,10 @@ describe('LocationService fetchLocationData expected return values', () => {
  * @param {number} longitude - Should be a floating point number.
  * @returns {Function} - Returns a mocked function.
  */
-function mockFetchFirstLatAndLong (latitude, longitude) {
+function mockFetchFirstLatAndLong (latitude: number, longitude: number) {
   return jest.spyOn(LocationProvider.prototype, 'fetchFirstLatAndLong')
     .mockImplementation(() => {
-      return { lat: latitude, lon: longitude }
+      return Promise.resolve({ lat: latitude, lon: longitude })
     })
 }
 
@@ -84,7 +84,7 @@ function mockFetchFirstLatAndLong (latitude, longitude) {
  *
  * @param {string} countryCode - The country code.
  */
-async function expectAsyncFetchThrowOnInvalidCountry (countryCode) {
+async function expectAsyncFetchThrowOnInvalidCountry (countryCode: string) {
   expect(async () => await sut.fetchLocationData(city, countryCode)).rejects.toThrow(InvalidCountryCodeError)
 }
 
@@ -94,7 +94,7 @@ async function expectAsyncFetchThrowOnInvalidCountry (countryCode) {
  * @param {number} latitude - The latitude.
  * @param {number} longitude - The longitude.
  */
-async function assertFetchLocationDataReturnsCorrectValues (latitude, longitude) {
+async function assertFetchLocationDataReturnsCorrectValues (latitude: number, longitude: number) {
   const expected = { lat: latitude, lon: longitude }
   const actual = await sut.fetchLocationData(city, countryCode)
   expect(actual).toEqual(expected)
