@@ -14,6 +14,10 @@ describe('LocationProvider', () => {
     sut = new LocationProvider(city, countryCode)
   })
 
+  afterEach(() => {
+    jest.restoreAllMocks()
+  })
+
   it('fetches and returns latitude and longitude of first item', async () => {
     mockFetch([
       {

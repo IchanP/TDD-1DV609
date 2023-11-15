@@ -2,6 +2,7 @@ import { WeatherController } from '../src/Controller/WeatherController.ts'
 import { WeatherFetcherFacade } from '../src/model/WeatherFetcherFacade.ts'
 
 const fetchWeatherDataMock = jest.spyOn(WeatherFetcherFacade.prototype, 'fetchWeatherData')
+  .mockImplementation(() => Promise.resolve())
 
 describe('WeatherController', () => {
   const cityInput = document.createElement('input')

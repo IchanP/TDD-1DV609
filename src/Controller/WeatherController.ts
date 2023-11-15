@@ -1,3 +1,6 @@
+import { LocationService } from '../model/LocationService.ts'
+import { WeatherFetcherFacade } from '../model/WeatherFetcherFacade.ts'
+
 /**
  * Works as the controller between the view and the model.
  */
@@ -49,6 +52,7 @@ export class WeatherController {
    * Fetches weather data from openweatherapi.
    */
   async fetchWeatherData (): Promise<void> {
-    
+    const weatherFacade = new WeatherFetcherFacade(new LocationService())
+    weatherFacade.fetchWeatherData(this.#cityInput.value, this.#countryCodeInput.value)
   }
 }
