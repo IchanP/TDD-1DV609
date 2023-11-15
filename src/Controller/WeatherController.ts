@@ -2,6 +2,9 @@
  * Works as the controller between the view and the model.
  */
 export class WeatherController {
+  submitButton: HTMLButtonElement
+  countryCodeInput: HTMLInputElement
+  cityInput: HTMLInputElement
   /**
    * Initializes the fields of the class.
    *
@@ -10,6 +13,8 @@ export class WeatherController {
    * @param {HTMLButtonElement} submitButton - The button element for submitting the form.
    */
   constructor (cityInputElement : HTMLInputElement, countryCodeInputElement : HTMLInputElement, submitButton : HTMLButtonElement) {
-    
+    this.cityInput = cityInputElement
+    this.countryCodeInput = countryCodeInputElement
+    this.submitButton = submitButton
   }
 }
