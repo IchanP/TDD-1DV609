@@ -5,9 +5,15 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + TS</title>
-  </head>
-  <body>
-    <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
-  </body>
+    <link rel="stylesheet" href="./styles/styles.css" />
+  </head>
+  <div id="app">
+    <img src="./vite.svg" id="weather-image">
+    <div class="input-container">
+        <input type="text" placeholder="Write name of city here" id="cityname-input">
+        <input type="text" maxlength="2" placeholder="Write your country code here" id="countrycode-input">
+    </div>
+    <button id="gofetch-button">Get Weather!</button>
+  </div>
 </html>
