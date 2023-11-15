@@ -10,12 +10,12 @@ export class LocationService {
    *
    * @param {string} cityName - The name of the city. Example: 'London'
    * @param {string} countryCode - The country code in ISO 3166 alpha-2 format https://www.iso.org/obp/ui/#search/code/
-   * @returns {Promise<LocationData>} - Returns a promise for the latitude and longitude of the city, in 2 decimal point accuracy.
+   * @returns {Promise<LocationData>} - Returns a promise for the latitude and longitude of the city, in 2.
    */
   async fetchLocationData (cityName: string, countryCode: string): Promise<LocationData> {
     this.#validateCountryCode(countryCode)
     const locationProvider = new LocationProvider(cityName, countryCode)
-    const latAndLong = await locationProvider.fetchLocationData()
+    const latAndLong = await locationProvider.fetchFirstLatAndLong()
     return this.#trimLatitudeAndLongitude(latAndLong)
   }
 

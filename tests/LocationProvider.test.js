@@ -50,20 +50,20 @@ describe('LocationProvider', () => {
       }
     ], true)
     const expected = { lat: 58.5420395, lon: 15.041261 }
-    const actual = await sut.fetchLocationData()
+    const actual = await sut.fetchFirstLatAndLong()
     expectApiCall()
     expect(actual).toEqual(expected)
   })
 
   it('throws an APIError when ok status is false on fetch', () => {
     mockFetch({}, false)
-    expect(async () => await sut.fetchLocationData()).rejects.toThrow(APIError)
+    expect(async () => await sut.fetchFirstLatAndLong()).rejects.toThrow(APIError)
     expectApiCall()
   })
 
   it('throws an InvalidAPIParamaterError if the API returns an empty array', () => {
     mockFetch([])
-    expect(async () => await sut.fetchLocationData()).rejects.toThrow(InvalidAPIParamaterError)
+    expect(async () => await sut.fetchFirstLatAndLong()).rejects.toThrow(InvalidAPIParamaterError)
     expectApiCall()
   })
 })

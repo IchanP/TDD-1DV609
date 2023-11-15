@@ -24,7 +24,7 @@ export class LocationProvider {
    *
    * @returns {Promise<LocationData>} - The latitude and longitude of the city.
    */
-  async fetchLocationData (): Promise<LocationData> {
+  async fetchFirstLatAndLong (): Promise<LocationData> {
     const data = await this.#fetchCityData()
     return this.#extractLatandLon(data, 0)
   }
