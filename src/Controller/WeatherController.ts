@@ -44,4 +44,11 @@ export class WeatherController {
   get cityInput (): HTMLInputElement {
     return this.#cityInput
   }
+
+  /**
+   * Fetches weather data from openweatherapi.
+   */
+  async fetchWeatherData (): Promise<void> {
+    
+  }
 }
