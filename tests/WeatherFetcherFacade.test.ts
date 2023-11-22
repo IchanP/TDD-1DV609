@@ -27,7 +27,7 @@ describe('Fetches longitude and latitude', () => {
 
   it('should call WeatherDataService with LocationService return value', async () => {
     sut.fetchWeatherData(city, countryCode)
-    const expectedCallValue = serviceLocationDataStub.mock.results[0].value
+    const expectedCallValue = await serviceLocationDataStub.mock.results[0].value
     console.log(expectedCallValue)
     expect(weatherServiceStub).toHaveBeenCalledWith(expectedCallValue)
   })
