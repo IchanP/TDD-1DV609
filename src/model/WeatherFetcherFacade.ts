@@ -5,13 +5,16 @@ import { WeatherDataService } from './WeatherDataService'
  */
 export class WeatherFetcherFacade {
   #locationService : ILocationService
+  #weatherDataService : WeatherDataService
   /**
    * Initializes the location service field.
    *
    * @param {ILocationService} locationService - The location service to use.
+   * @param {WeatherDataService} weatherDataService - The weather data service to use.
    */
-  constructor (locationService : ILocationService) {
+  constructor (locationService : ILocationService, weatherDataService: WeatherDataService) {
     this.#locationService = locationService
+    this.#weatherDataService = weatherDataService
   }
 
   /**
@@ -22,7 +25,6 @@ export class WeatherFetcherFacade {
    */
   async fetchWeatherData (cityName: string, countryCode: string): Promise<any> {
     const latAndLong = await this.#locationService.fetchLocationData(cityName, countryCode)
-    const weatherDataService = new WeatherDataService()
-    weatherDataService.fetchWeatherData(latAndLong)
+    this.#weatherDataService.fetchWeatherData(latAndLong)
   }
 }

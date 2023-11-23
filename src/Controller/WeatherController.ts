@@ -1,4 +1,4 @@
-import { LocationService } from '../model/LocationService.ts'
+import { WeatherDataService } from '../model/WeatherDataService.ts'
 import { WeatherFetcherFacade } from '../model/WeatherFetcherFacade.ts'
 
 /**
@@ -65,7 +65,7 @@ export class WeatherController {
    * Fetches weather data from openweatherapi.
    */
   async fetchWeatherData (): Promise<void> {
-    const weatherFacade = new WeatherFetcherFacade(this.#locationService)
+    const weatherFacade = new WeatherFetcherFacade(this.#locationService, new WeatherDataService())
     weatherFacade.fetchWeatherData(this.#cityInput.value, this.#countryCodeInput.value)
   }
 }

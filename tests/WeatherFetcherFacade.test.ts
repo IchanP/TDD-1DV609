@@ -8,27 +8,28 @@ jest.mock('../src/model/LocationService.ts')
 jest.mock('../src/model/WeatherDataService.ts')
 
 let sut : WeatherFetcherFacade
+let serviceLocationDataStub: SpiedFunction<(cityName: string, countryCode: string) => Promise<LocationData>>
+let weatherServiceStub: SpiedFunction<(latAndLong: LocationData) => Promise<void>>
 const city = 'Motala'
 const countryCode = 'SE'
-describe('Fetches longitude and latitude', () => {
-  let serviceLocationDataStub: SpiedFunction<(cityName: string, countryCode: string) => Promise<LocationData>>
-  let weatherServiceStub: any
 
+describe('Fetches longitude and latitude', () => {
   beforeAll(() => {
-    sut = new WeatherFetcherFacade(new LocationService())
+    sut = new WeatherFetcherFacade(new LocationService(), new WeatherDataService())
     serviceLocationDataStub = jest.spyOn(LocationService.prototype, 'fetchLocationData')
     weatherServiceStub = jest.spyOn(WeatherDataService.prototype, 'fetchWeatherData')
   })
 
-  it('should call LocationService', () => {
+  beforeEach(() => {
     sut.fetchWeatherData(city, countryCode)
+  })
+
+  it('should call LocationService', () => {
     expect(serviceLocationDataStub).toHaveBeenCalled()
   })
 
   it('should call WeatherDataService with LocationService return value', async () => {
-    sut.fetchWeatherData(city, countryCode)
     const expectedCallValue = await serviceLocationDataStub.mock.results[0].value
-    console.log(expectedCallValue)
     expect(weatherServiceStub).toHaveBeenCalledWith(expectedCallValue)
   })
 })
