@@ -1,14 +1,21 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+import { WeatherDataService } from '../WeatherDataService'
+
 /**
- * Mocks the WeatherFetcherFacade class
+ *
  */
 export class WeatherFetcherFacade {
-  #locationService : ILocationService
+  static mockConstructor = jest.fn()
+  #locationService: ILocationService
   /**
    * Initializes the location service field.
    *
    * @param {ILocationService} locationService - The location service to use.
+   * @param {WeatherDataService} dataService - The data service to use.
    */
-  constructor (locationService: ILocationService) {
+  constructor (locationService: ILocationService, dataService : WeatherDataService) {
+    WeatherFetcherFacade.mockConstructor(locationService)
     this.#locationService = locationService
   }
 
@@ -22,4 +29,8 @@ export class WeatherFetcherFacade {
   fetchWeatherData (_cityName: string, countryCode: string) {
     // Do nothing
   }
+}
+
+export interface MockWeatherFetcherFacade extends WeatherFetcherFacade {
+  mockConstructor: jest.Mock;
 }

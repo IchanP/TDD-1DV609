@@ -1,7 +1,9 @@
 import { WeatherController } from '../src/Controller/WeatherController.ts'
 import { WeatherFetcherFacade } from '../src/model/WeatherFetcherFacade.ts'
+import { MockWeatherFetcherFacade } from '../src/model/__mocks__/WeatherFetcherFacade.ts'
 import { LocationService } from '../src/model/LocationService.ts'
 import { jest } from '@jest/globals'
+import { WeatherDataService } from '../src/model/WeatherDataService.ts'
 
 jest.mock('../src/model/LocationService.ts')
 jest.mock('../src/model/WeatherFetcherFacade.ts')
@@ -9,11 +11,15 @@ jest.mock('../src/model/WeatherFetcherFacade.ts')
 const cityInput = document.createElement('input')
 const countryCodeInput = document.createElement('input')
 const submitButton = document.createElement('button')
+const dataService = new WeatherDataService()
 let sut : WeatherController
 
 describe('WeatherController', () => {
   beforeAll(() => {
     sut = new WeatherController(cityInput, countryCodeInput, submitButton, new LocationService())
+  })
+  beforeEach(() => {
+    jest.clearAllMocks()
   })
 
   it('constructor should accept three elements as argument', () => {
@@ -26,9 +32,9 @@ describe('WeatherController', () => {
   })
 
   it('should have an ILocationService property', () => {
-    const sut = new WeatherController(cityInput, countryCodeInput, submitButton, new LocationService())
     expect(sut.locationService).toBeDefined()
   })
+
   it('should call fetchWeatherData on WeatherFetcherFacade with values from cityInput and countryCodeInput', () => {
     const mockFetchWeatherData = jest.spyOn(WeatherFetcherFacade.prototype, 'fetchWeatherData')
     const city = 'Motala'
@@ -37,5 +43,15 @@ describe('WeatherController', () => {
     countryCodeInput.value = countryCode
     sut.fetchWeatherData()
     expect(mockFetchWeatherData).toHaveBeenCalledWith(city, countryCode)
+  })
+
+  it('fetchWeatherData should construct WeatherFetcherFacade with own properties', () => {
+    // Necessary casting to spy on the constructor.
+    const mockedWeatherFetcherFacade = WeatherFetcherFacade as unknown as MockWeatherFetcherFacade
+    sut.fetchWeatherData()
+    const expected = (sut.locationService === mockedWeatherFetcherFacade.mockConstructor.mock.calls[0][0]) &&
+    (sut.dataService === mockedWeatherFetcherFacade.mockConstructor.mock.calls[0][1])
+    // TODO do this when checking for the correct constructor call.
+    expect(expected).toBeTruthy()
   })
 })
