@@ -11,7 +11,6 @@ jest.mock('../src/model/WeatherFetcherFacade.ts')
 const cityInput = document.createElement('input')
 const countryCodeInput = document.createElement('input')
 const submitButton = document.createElement('button')
-const dataService = new WeatherDataService()
 let sut : WeatherController
 
 describe('WeatherController', () => {
@@ -49,9 +48,13 @@ describe('WeatherController', () => {
     // Necessary casting to spy on the constructor.
     const mockedWeatherFetcherFacade = WeatherFetcherFacade as unknown as MockWeatherFetcherFacade
     sut.fetchWeatherData()
-    const expected = (sut.locationService === mockedWeatherFetcherFacade.mockConstructor.mock.calls[0][0]) &&
-    (sut.dataService === mockedWeatherFetcherFacade.mockConstructor.mock.calls[0][1])
-    // TODO do this when checking for the correct constructor call.
+
+    const locationField = sut.locationService
+    const dataField = sut.dataService
+    const firstArgument = mockedWeatherFetcherFacade.mockConstructor.mock.calls[0][0]
+    const secondArgument = mockedWeatherFetcherFacade.mockConstructor.mock.calls[0][1]
+
+    const expected = (locationField === firstArgument) && (dataField === secondArgument)
     expect(expected).toBeTruthy()
   })
 })
