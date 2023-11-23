@@ -9,6 +9,7 @@ export class WeatherController {
   #countryCodeInput: HTMLInputElement
   #cityInput: HTMLInputElement
   #locationService : ILocationService
+  #dataService : WeatherDataService
   /**
    * Initializes the fields of the class.
    *
@@ -16,13 +17,15 @@ export class WeatherController {
    * @param {HTMLInputElement} countryCodeInputElement - The input element for the country code.
    * @param {HTMLButtonElement} submitButton - The button element for submitting the form.
    * @param  locationService
+   * @param dataService
    */
   constructor (cityInputElement : HTMLInputElement, countryCodeInputElement : HTMLInputElement, submitButton : HTMLButtonElement
-    , locationService : ILocationService) {
+    , locationService : ILocationService, dataService : WeatherDataService) {
     this.#cityInput = cityInputElement
     this.#countryCodeInput = countryCodeInputElement
     this.#submitButton = submitButton
     this.#locationService = locationService
+    this.#dataService = dataService
   }
 
   /**
@@ -32,6 +35,15 @@ export class WeatherController {
    */
   get submitButton (): HTMLButtonElement {
     return this.#submitButton
+  }
+
+  /**
+   * Returns the data service the controller uses.
+   *
+   * @returns {WeatherDataService} - Returns the private field.
+   */
+  get dataService (): WeatherDataService {
+    return this.#dataService
   }
 
   /**
@@ -65,7 +77,7 @@ export class WeatherController {
    * Fetches weather data from openweatherapi.
    */
   async fetchWeatherData (): Promise<void> {
-    const weatherFacade = new WeatherFetcherFacade(this.#locationService, new WeatherDataService())
+    const weatherFacade = new WeatherFetcherFacade(this.#locationService, this.#dataService)
     weatherFacade.fetchWeatherData(this.#cityInput.value, this.#countryCodeInput.value)
   }
 }

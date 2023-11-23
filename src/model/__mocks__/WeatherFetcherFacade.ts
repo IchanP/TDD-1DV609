@@ -15,7 +15,7 @@ export class WeatherFetcherFacade {
    * @param {WeatherDataService} dataService - The data service to use.
    */
   constructor (locationService: ILocationService, dataService : WeatherDataService) {
-    WeatherFetcherFacade.mockConstructor(locationService)
+    WeatherFetcherFacade.mockConstructor(locationService, dataService)
     this.#locationService = locationService
   }
 
