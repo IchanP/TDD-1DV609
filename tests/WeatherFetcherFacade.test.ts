@@ -17,7 +17,7 @@ describe('Fetches longitude and latitude', () => {
   beforeAll(() => {
     sut = new WeatherFetcherFacade(new LocationService(), new WeatherDataService())
     serviceLocationDataStub = jest.spyOn(LocationService.prototype, 'fetchLocationData')
-    weatherServiceStub = jest.spyOn(WeatherDataService.prototype, 'fetchWeatherData')
+    weatherServiceStub = jest.spyOn(WeatherDataService.prototype, 'fetchCurrentWeatherData')
   })
 
   beforeEach(() => {

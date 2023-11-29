@@ -4,8 +4,9 @@
 export class WeatherDataService {
   /**
    *
+   * @param latAndLong
    */
-  async fetchWeatherData (latAndLong: LocationData) {
+  fetchCurrentWeatherData (latAndLong: LocationData) {
 
   }
 }

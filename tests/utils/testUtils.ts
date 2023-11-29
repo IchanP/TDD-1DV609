@@ -31,3 +31,19 @@ export function mockFetch (jsonData: object, ok = true) {
     } as unknown as Response)
   )
 }
+
+/**
+ * Checks whether the passed variable conforms to CurrentWeather type.
+ *
+ * @param {object} toCheck - The object to check.
+ * @returns {boolean} - Whether the object conforms to CurrentWeather type.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function isCurrentWeather (toCheck: any) : boolean {
+  return toCheck &&
+           typeof toCheck.nameOfLocation === 'string' &&
+           typeof toCheck.temperature === 'number' &&
+           typeof toCheck.description === 'string' &&
+           typeof toCheck.mainWeather === 'string' &&
+           typeof toCheck.pictureIcon === 'string'
+}

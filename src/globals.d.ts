@@ -10,3 +10,12 @@ type CityApiResponse = {
     lon: number;
     country: string;
 }
+
+type CurrentWeather = {
+    nameOfLocation: string;
+    temperature: number;
+    description: string;
+    mainWeather: string;
+    pictureIcon: string;
+
+}

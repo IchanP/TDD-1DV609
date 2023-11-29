@@ -8,7 +8,7 @@ export class WeatherDataService {
    *
    * @param {LocationData}  latAndLong - The location data to use to fetch.
    */
-  fetchWeatherData (latAndLong: LocationData) {
+  fetchCurrentWeatherData (latAndLong: LocationData) {
     // DO NOTHING FOR NOW
   }
 }
