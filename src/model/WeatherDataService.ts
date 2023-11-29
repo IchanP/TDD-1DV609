@@ -6,7 +6,7 @@ export class WeatherDataService {
    *
    * @param latAndLong
    */
-  fetchCurrentWeatherData (latAndLong: LocationData) {
-
+  fetchCurrentWeatherData (latAndLong: LocationData) : CurrentWeather {
+    return { nameOfLocation: 'Motala', temperature: 10, description: 'Scattered Clouds', mainWeather: 'Clouds', pictureIcon: '10d' }
   }
 }
