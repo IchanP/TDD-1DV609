@@ -3,5 +3,5 @@ interface ILocationService {
 }
 
 interface IWeatherProvider {
-    fetchCurrentWeatherData(latAndLong: LocationData): Promise<>
+    fetchCurrentWeatherData(latAndLong: LocationData, unitType? : UnitType): Promise<>
 }

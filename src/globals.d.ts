@@ -17,5 +17,6 @@ type CurrentWeather = {
     description: string;
     mainWeather: string;
     pictureIcon: string;
-
 }
+
+type UnitType = 'metric' | 'imperial'

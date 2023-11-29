@@ -12,7 +12,7 @@ export class WeatherDataProvider implements IWeatherProvider {
    * @returns {Promise<any>} - The response from the API.
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async fetchCurrentWeatherData (latAndLong: LocationData, unitType : string = 'metric') : Promise<any> {
+  async fetchCurrentWeatherData (latAndLong: LocationData, unitType : UnitType = 'metric') : Promise<any> {
     const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latAndLong.lat}&lon=${latAndLong.lon}&appid=${process.env.API_KEY}&units=${unitType}`)
     this.#validateFetch(response)
     const data = await response.json()
