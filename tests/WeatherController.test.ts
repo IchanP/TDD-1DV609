@@ -47,6 +47,7 @@ describe('WeatherController', () => {
   it('fetchWeatherData should construct WeatherFetcherFacade with own properties', () => {
     // Necessary casting to spy on the constructor.
     const mockedWeatherFetcherFacade = WeatherFetcherFacade as unknown as MockWeatherFetcherFacade
+
     sut.fetchWeatherData()
 
     const locationField = sut.locationService
