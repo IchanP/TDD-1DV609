@@ -16,7 +16,7 @@ describe('WeatherDataProvider', () => {
 
   it('it should call fetch with correct url', async () => {
     mockFetch({})
-    const expected = `https://api.openweathermap.org/data/2.5/weather?lat=${locationData.lat}&lon=${locationData.lon}&appid=${process.env.API_KEY}`
+    const expected = `https://api.openweathermap.org/data/2.5/weather?lat=${locationData.lat}&lon=${locationData.lon}&appid=${process.env.API_KEY}&units=metric`
     sut.fetchCurrentWeatherData(locationData)
     expect(global.fetch).toHaveBeenCalledWith(expected)
   })
@@ -31,5 +31,11 @@ describe('WeatherDataProvider', () => {
   it('fetchCurrentWeather should throw APIError if result is not ok', async () => {
     mockFetch({}, false)
     await expect(async () => await sut.fetchCurrentWeatherData(locationData)).rejects.toThrow(APIError)
+  })
+  it('OpenWeatherMap API should be called with imperial units if passed imperial argument', () => {
+    mockFetch({})
+    const expected = `https://api.openweathermap.org/data/2.5/weather?lat=${locationData.lat}&lon=${locationData.lon}&appid=${process.env.API_KEY}&units=imperial`
+    sut.fetchCurrentWeatherData(locationData, 'imperial')
+    expect(global.fetch).toHaveBeenCalledWith(expected)
   })
 })
