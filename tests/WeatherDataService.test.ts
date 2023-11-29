@@ -8,7 +8,8 @@ describe('WeatherDataService', () => {
     sut = new WeatherDataService()
   })
   it('fetchCurrentWeatherData should return a CurrentWeather object', () => {
-    const actual = sut.fetchCurrentWeatherData({ lat: 10.0, lon: 10.0 })
+    const placeHolderLocationData = { lat: 0, lon: 0 }
+    const actual = sut.fetchCurrentWeatherData(placeHolderLocationData)
     expect(isCurrentWeather(actual)).toBe(true)
   })
 })
