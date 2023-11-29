@@ -6,6 +6,13 @@ import { WeatherDataProvider } from './WeatherDataProvider'
 export class WeatherDataService {
   /**
    *
+   */
+  addProvider () {
+
+  }
+
+  /**
+   *
    * @param latAndLong
    */
   fetchCurrentWeatherData (latAndLong: LocationData) : CurrentWeather {
