@@ -8,8 +8,11 @@ export class WeatherDataService {
 
   /**
    * Adds a provider to the service.
+   *
+   * @param {IWeatherProvider} provider - The provider to add.
    */
-  addProvider () {
+  addProvider (provider: IWeatherProvider) : void {
+    this.provider = provider
   }
 
   /**
@@ -17,8 +20,7 @@ export class WeatherDataService {
    * @param latAndLong
    */
   fetchCurrentWeatherData (latAndLong: LocationData) : CurrentWeather {
-    const weatherData = new WeatherDataProvider()
-    weatherData.fetchCurrentWeatherData(latAndLong)
+    this.provider.fetchCurrentWeatherData(latAndLong)
     return { nameOfLocation: 'Motala', temperature: 10, description: 'Scattered Clouds', mainWeather: 'Clouds', pictureIcon: '10d' }
   }
 }
