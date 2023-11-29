@@ -6,8 +6,12 @@ export class WeatherDataProvider {
    * Fetches the weather data.
    *
    * @param {LocationData} latAndLong - The necessary latitude and longitude to fetch the weather data.
+   * @returns {Promise<any>} - The response from the API.
    */
-  async fetchCurrentWeatherData (latAndLong: LocationData) {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latAndLong.lat}&lon=${latAndLong.lon}&appid=${process.env.API_KEY}`)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async fetchCurrentWeatherData (latAndLong: LocationData) : Promise<any> {
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latAndLong.lat}&lon=${latAndLong.lon}&appid=${process.env.API_KEY}`)
+    const data = await response.json()
+    return data
   }
 }
