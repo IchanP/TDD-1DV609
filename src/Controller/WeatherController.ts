@@ -1,3 +1,4 @@
+import { WeatherDataProvider } from '../model/WeatherDataProvider.ts'
 import { WeatherDataService } from '../model/WeatherDataService.ts'
 import { WeatherFetcherFacade } from '../model/WeatherFetcherFacade.ts'
 
@@ -26,6 +27,7 @@ export class WeatherController {
     this.#submitButton = submitButton
     this.#locationService = locationService
     this.#dataService = weatherDataService
+    this.#dataService.addProvider(new WeatherDataProvider())
   }
 
   /**
