@@ -6,6 +6,7 @@ module.exports = {
   root: true,
   rules: {
     'no-undef': 'off',
-    'jsdoc/no-undefined-types': 'off'
+    'jsdoc/no-undefined-types': 'off',
+    '@typescript-eslint/no-explicit-any': 'off'
   }
 }
