@@ -20,4 +20,7 @@ describe('WeatherDataService', () => {
     sut.fetchCurrentWeatherData(placeHolderLocationData)
     expect(mockedFetchCurrentWeatherData).toHaveBeenCalledWith(placeHolderLocationData)
   })
+  it('should have a way to add and change data provider', () => {
+    expect(sut.addProvider).toBeDefined()
+  })
 })
