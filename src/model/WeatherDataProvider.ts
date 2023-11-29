@@ -3,7 +3,7 @@ import { APIError } from './Errors/APIError'
 /**
  * A wrapper for fethcing weather data from the OpenWeatherMap API.
  */
-export class WeatherDataProvider {
+export class WeatherDataProvider implements IWeatherProvider {
   /**
    * Fetches the weather data.
    *

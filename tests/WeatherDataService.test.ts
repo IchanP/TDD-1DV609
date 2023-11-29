@@ -23,4 +23,7 @@ describe('WeatherDataService', () => {
   it('should have a way to add and change data provider', () => {
     expect(sut.addProvider).toBeDefined()
   })
+  it('should have a provider field', () => {
+    expect(sut.provider).toBeDefined()
+  })
 })

@@ -4,11 +4,12 @@ import { WeatherDataProvider } from './WeatherDataProvider'
  * Class for handling weather data returned from the OpenWeatherMap API.
  */
 export class WeatherDataService {
+  provider : IWeatherProvider = new WeatherDataProvider()
+
   /**
-   *
+   * Adds a provider to the service.
    */
   addProvider () {
-
   }
 
   /**
