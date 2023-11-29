@@ -19,8 +19,15 @@ export class WeatherDataService {
    *
    * @param latAndLong
    */
-  fetchCurrentWeatherData (latAndLong: LocationData) : CurrentWeather {
-    this.provider.fetchCurrentWeatherData(latAndLong)
-    return { nameOfLocation: 'Motala', temperature: 10, description: 'Scattered Clouds', mainWeather: 'Clouds', pictureIcon: '10d' }
+  async fetchCurrentWeatherData (latAndLong: LocationData) : Promise<CurrentWeather> {
+    const jsonObject = await this.provider.fetchCurrentWeatherData(latAndLong)
+
+    return {
+      nameOfLocation: jsonObject.name,
+      temperature: jsonObject.main.temp,
+      description: jsonObject.weather[0].description,
+      mainWeather: jsonObject.weather[0].main,
+      pictureIcon: jsonObject.weather[0].icon
+    }
   }
 }

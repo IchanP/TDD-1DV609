@@ -11,8 +11,8 @@ describe('WeatherDataService', () => {
   beforeAll(() => {
     sut = new WeatherDataService()
   })
-  it('fetchCurrentWeatherData should return a CurrentWeather object', () => {
-    const actual = sut.fetchCurrentWeatherData(placeHolderLocationData)
+  it('fetchCurrentWeatherData should return a CurrentWeather object', async () => {
+    const actual = await sut.fetchCurrentWeatherData(placeHolderLocationData)
     expect(isCurrentWeather(actual)).toBe(true)
   })
   it('fetchCUrrentWeatherData should call WeatherDataProvider with passed argument', () => {
@@ -20,9 +20,9 @@ describe('WeatherDataService', () => {
     sut.fetchCurrentWeatherData(placeHolderLocationData)
     expect(mockedFetchCurrentWeatherData).toHaveBeenCalledWith(placeHolderLocationData)
   })
-  it('fetcCurrentWeatherData should return values based on provider response', () => {
+  it('fetcCurrentWeatherData should return values based on provider response', async () => {
     const expected = { nameOfLocation: 'Motala', temperature: 265.47, description: 'scattered clouds', mainWeather: 'Clouds', pictureIcon: '03n' }
-    const actual = sut.fetchCurrentWeatherData(placeHolderLocationData)
+    const actual = await sut.fetchCurrentWeatherData(placeHolderLocationData)
     expect(actual).toEqual(expected)
   })
   it('should have a way to add and change data provider', () => {

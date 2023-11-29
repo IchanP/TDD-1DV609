@@ -9,7 +9,7 @@ jest.mock('../src/model/WeatherDataService.ts')
 
 let sut : WeatherFetcherFacade
 let serviceLocationDataStub: SpiedFunction<(cityName: string, countryCode: string) => Promise<LocationData>>
-let weatherServiceStub: SpiedFunction<(latAndLong: LocationData) => CurrentWeather>
+let weatherServiceStub: SpiedFunction<(latAndLong: LocationData) => Promise<CurrentWeather>>
 const city = 'Motala'
 const countryCode = 'SE'
 
