@@ -59,6 +59,15 @@ export class WeatherView {
   }
 
   /**
+   * Displays the error in the DOM.
+   *
+   * @param {Error} errorToDisplay - Error to display in view.
+   */
+  displayError (errorToDisplay: any) {
+
+  }
+
+  /**
    * Renders the current weather data in the DOM.
    *
    * @param {CurrentWeather} weatherData - The data to render.

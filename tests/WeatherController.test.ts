@@ -69,7 +69,7 @@ describe('WeatherController', () => {
     expect(mockView).toHaveBeenCalledWith(mockedCurrentWeather)
   })
 
-  it('fetchWeatherData should call displayError on view with error if facade throws error', () => {
+  it('fetchWeatherData should call displayError on view with error if facade throws error', async () => {
     const mockView = jest.spyOn(WeatherView.prototype, 'displayError')
     const mockedError = new Error()
     jest.spyOn(WeatherFetcherFacade.prototype, 'fetchCurrentWeather').mockImplementationOnce(async (cityName: string, countryCode: string) => {
@@ -77,6 +77,7 @@ describe('WeatherController', () => {
       // eslint-disable-next-line no-unreachable
       return mockedCurrentWeather
     })
+    await sut.fetchWeatherData()
     expect(mockView).toHaveBeenCalledWith(mockedError)
   })
 })

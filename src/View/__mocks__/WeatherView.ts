@@ -10,4 +10,13 @@ export class WeatherView {
   renderCurrentWeatherData (weatherData: CurrentWeather) {
     // do nothing just for spying
   }
+
+  /**
+   * Mocked method for spying.
+   *
+   * @param {Error} errorToDisplay - Error to display in view
+   */
+  displayError (errorToDisplay : any) {
+    // do nothing just for spying
+  }
 }
