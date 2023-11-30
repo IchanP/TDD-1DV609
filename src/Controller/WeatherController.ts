@@ -93,6 +93,16 @@ export class WeatherController {
   async fetchWeatherData (): Promise<void> {
     const weatherFacade = new WeatherFetcherFacade(this.#locationService, this.#dataService)
     const currentWeather = await weatherFacade.fetchCurrentWeather(this.#cityInput.value, this.#countryCodeInput.value)
-    this.#weatherImage.src = `https://openweathermap.org/img/wn/${currentWeather.pictureIcon}@2x.png`
+    this.#setImageSource(currentWeather.pictureIcon)
+  }
+
+  /**
+   * Sets the image source for the private field.
+   *
+   * @param {string} iconValue - The icon value.
+   */
+  #setImageSource (iconValue: string) : void {
+    const url = `https://openweathermap.org/img/wn/${iconValue}@2x.png`
+    this.#weatherImage.src = url
   }
 }
