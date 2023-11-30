@@ -34,6 +34,9 @@ describe('WeatherController', () => {
   it('should have property for weather image', () => {
     expect(sut.weatherImage).toBeDefined()
   })
+  it('should have a property for the view', () => {
+    expect(sut.view).toBeDefined()
+  })
 
   it('should have an ILocationService property', () => {
     expect(sut.locationService).toBeDefined()
