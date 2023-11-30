@@ -92,6 +92,7 @@ export class WeatherView {
     } else {
       this.#currentTemperature.textContent = `${weatherData.temperature}°F`
     }
+    this.#errorElement.textContent = ''
   }
 
   /**
