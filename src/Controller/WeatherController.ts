@@ -17,11 +17,12 @@ export class WeatherController {
    * @param {HTMLInputElement} cityInputElement - The input element for the city name.
    * @param {HTMLInputElement} countryCodeInputElement - The input element for the country code.
    * @param {HTMLButtonElement} submitButton - The button element for submitting the form.
+   * @param {HTMLImageElement} weatherImage - The image element to use.
    * @param {ILocationServic} locationService - The location service to use.
    * @param {WeatherDataService} weatherDataService - The data service to use.
    */
   constructor (cityInputElement : HTMLInputElement, countryCodeInputElement : HTMLInputElement, submitButton : HTMLButtonElement
-    , locationService : ILocationService, weatherDataService : WeatherDataService) {
+    , weatherImage : HTMLImageElement, locationService : ILocationService, weatherDataService : WeatherDataService) {
     this.#cityInput = cityInputElement
     this.#countryCodeInput = countryCodeInputElement
     this.#submitButton = submitButton

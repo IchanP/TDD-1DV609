@@ -11,11 +11,12 @@ jest.mock('../src/model/WeatherFetcherFacade.ts')
 const cityInput = document.createElement('input')
 const countryCodeInput = document.createElement('input')
 const submitButton = document.createElement('button')
+const weatherImage = document.createElement('img')
 let sut : WeatherController
 
 describe('WeatherController', () => {
   beforeAll(() => {
-    sut = new WeatherController(cityInput, countryCodeInput, submitButton, new LocationService(), new WeatherDataService())
+    sut = new WeatherController(cityInput, countryCodeInput, submitButton, weatherImage, new LocationService(), new WeatherDataService())
   })
   beforeEach(() => {
     jest.clearAllMocks()
@@ -28,6 +29,9 @@ describe('WeatherController', () => {
     expect(sut.cityInput).toBeDefined()
     expect(sut.countryCodeInput).toBeDefined()
     expect(sut.submitButton).toBeDefined()
+  })
+  it('should have property for weather image', () => {
+    expect(sut.weatherImage).toBeDefined()
   })
 
   it('should have an ILocationService property', () => {
