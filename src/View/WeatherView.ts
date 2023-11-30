@@ -41,6 +41,15 @@ export class WeatherView {
   }
 
   /**
+   * Returns the error message textcontent.
+   *
+   * @returns {string} - Returns the value of the error message element.
+   */
+  get errorMessage (): string {
+    return ''
+  }
+
+  /**
    * Returns the currentweather title elements text content.
    *
    * @returns {string} - Returns the value of the title element.
