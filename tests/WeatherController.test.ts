@@ -4,7 +4,7 @@ import { MockWeatherFetcherFacade } from '../src/model/__mocks__/WeatherFetcherF
 import { LocationService } from '../src/model/LocationService.ts'
 import { jest } from '@jest/globals'
 import { WeatherDataService } from '../src/model/WeatherDataService.ts'
-import { mockedCurrentWeather } from './utils/testUtils.ts'
+import { mockedCurrentWeather, commonView } from './utils/testUtils.ts'
 import { WeatherView } from '../src/View/WeatherView.ts'
 
 jest.mock('../src/model/LocationService.ts')
@@ -17,10 +17,7 @@ let sut : WeatherController
 
 describe('WeatherController', () => {
   beforeAll(() => {
-    const viewCurrentImage = document.createElement('img')
-    const viewCurrentTitle = document.createElement('h1')
-    const currentTemperature = document.createElement('h1')
-    sut = new WeatherController(cityInput, countryCodeInput, new LocationService(), new WeatherDataService(), new WeatherView(viewCurrentImage, viewCurrentTitle, currentTemperature))
+    sut = new WeatherController(cityInput, countryCodeInput, new LocationService(), new WeatherDataService(), commonView)
   })
   beforeEach(() => {
     jest.clearAllMocks()

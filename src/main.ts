@@ -5,7 +5,8 @@ import { WeatherDataService } from './model/WeatherDataService'
 
 const currentWeatherImage = document.getElementById('weather-image') as HTMLImageElement
 const weatherTitle = document.getElementById('mainWeather') as HTMLHeadingElement
-const view = new WeatherView(currentWeatherImage, weatherTitle)
+const currentTemperature = document.getElementById('temp') as HTMLHeadingElement
+const view = new WeatherView(currentWeatherImage, weatherTitle, currentTemperature)
 
 const cityInput = document.getElementById('cityname-input') as HTMLInputElement
 const countryCodeInput = document.getElementById('countrycode-input') as HTMLInputElement

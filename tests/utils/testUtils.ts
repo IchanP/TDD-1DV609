@@ -1,3 +1,5 @@
+import { WeatherView } from '../../src/View/WeatherView'
+
 /**
  * Mocks the fetch function.
  *
@@ -94,3 +96,8 @@ export const mockedCurrentWeatherValue = {
 }
 
 export const mockedCurrentWeather = { nameOfLocation: 'Motala', temperature: 265.47, description: 'scattered clouds', mainWeather: 'Clouds', pictureIcon: '03n' }
+
+const viewCurrentImage = document.createElement('img')
+const viewCurrentTitle = document.createElement('h1')
+const currentTemperature = document.createElement('h1')
+export const commonView = new WeatherView(viewCurrentImage, viewCurrentTitle, currentTemperature)
