@@ -92,6 +92,7 @@ export class WeatherController {
    */
   async fetchWeatherData (): Promise<void> {
     const weatherFacade = new WeatherFetcherFacade(this.#locationService, this.#dataService)
-    weatherFacade.fetchCurrentWeather(this.#cityInput.value, this.#countryCodeInput.value)
+    const currentWeather = await weatherFacade.fetchCurrentWeather(this.#cityInput.value, this.#countryCodeInput.value)
+    this.#weatherImage.src = `https://openweathermap.org/img/wn/${currentWeather.pictureIcon}@2x.png`
   }
 }
