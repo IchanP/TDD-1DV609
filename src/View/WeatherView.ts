@@ -28,6 +28,6 @@ export class WeatherView {
    * @param {CurrentWeather} weatherData - The data to render.
    */
   renderCurrentWeatherData (weatherData: CurrentWeather) {
-
+    this.#currentWeatherImage.src = `https://openweathermap.org/img/wn/${weatherData.pictureIcon}@2x.png`
   }
 }
