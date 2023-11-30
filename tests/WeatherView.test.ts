@@ -35,6 +35,9 @@ describe('WeatherView', () => {
   it('should have a field for the current selected temperature', () => {
     expect(sut.currentSelectedTemperature).toBeDefined()
   })
+  it('should have a field for the error display', () => {
+    expect(sut.errorMessage).toBeDefined()
+  })
 
   it('currentSelectedTemperature should return the value of the selected temperature', () => {
     const sut = new WeatherView(currentWeatherImage, weatherTitle, currentTemperature, selectElement)
