@@ -82,11 +82,23 @@ export class WeatherController {
    */
   async fetchWeatherData (): Promise<void> {
     const weatherFacade = new WeatherFetcherFacade(this.#locationService, this.#dataService)
+    const currentWeather = await this.#tryFetchWeatherData(weatherFacade) as CurrentWeather
+    this.#view.renderCurrentWeatherData(currentWeather)
+  }
+
+  /**
+   * Tries to fetch weather data from the facade.
+   *
+   * @param {WeatherFetcherFacade} weatherFacade - The facade to fetch data from.
+   * @returns {CurrentWeather} - Returns the current weather data.
+   */
+  async #tryFetchWeatherData (weatherFacade : WeatherFetcherFacade) {
+    let currentWeather
     try {
-      const currentWeather = await weatherFacade.fetchCurrentWeather(this.#cityInput.value, this.#countryCodeInput.value)
-      this.#view.renderCurrentWeatherData(currentWeather)
+      currentWeather = await weatherFacade.fetchCurrentWeather(this.#cityInput.value, this.#countryCodeInput.value)
     } catch (err) {
       this.#view.displayError(err)
     }
+    return currentWeather
   }
 }
