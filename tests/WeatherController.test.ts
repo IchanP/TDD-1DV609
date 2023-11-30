@@ -4,6 +4,7 @@ import { MockWeatherFetcherFacade } from '../src/model/__mocks__/WeatherFetcherF
 import { LocationService } from '../src/model/LocationService.ts'
 import { jest } from '@jest/globals'
 import { WeatherDataService } from '../src/model/WeatherDataService.ts'
+import { mockedCurrentWeather } from './utils/testUtils.ts'
 
 jest.mock('../src/model/LocationService.ts')
 jest.mock('../src/model/WeatherFetcherFacade.ts')
@@ -61,5 +62,12 @@ describe('WeatherController', () => {
 
     const expected = (locationField === firstArgument) && (dataField === secondArgument)
     expect(expected).toBeTruthy()
+  })
+
+  it('fetchWeatherData should set weatherImage src to the returned weather image', async () => {
+    await sut.fetchWeatherData()
+    const expected = `https://openweathermap.org/img/wn/${mockedCurrentWeather.pictureIcon}@2x.png`
+    const actual = sut.weatherImage.src
+    expect(actual).toEqual(expected)
   })
 })
