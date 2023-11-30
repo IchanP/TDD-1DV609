@@ -15,10 +15,13 @@
       <h1 id="temp"></h1>
     </div>
     <div class="input-container">
-        <select id="tempStyle">
+      <div id="temperature-wrapper">
+        <label for="tempStyle">Temperature Style</label>
+        <select id="tempStyle" name="tempStyle">
           <option value="Celsius" selected>Celsius</option>
           <option value="Fahrenheit">Fahrenheit</option>
         </select>
+      </div>
         <input type="text" placeholder="Write name of city here" id="cityname-input">
         <input type="text" maxlength="2" placeholder="Country Code" id="countrycode-input">
     </div>

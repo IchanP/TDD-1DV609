@@ -19,6 +19,9 @@ describe('WeatherView', () => {
   it('should have a field for the current temperature', () => {
     expect(sut.currentTemperature).toBeDefined()
   })
+  it('should have a field for the current selected temperature', () => {
+    expect(sut.currentSelectedTemperature).toBeDefined()
+  })
   it('renderCurrentWeatherData should set the src attribute of the currentWeatherImage to correct value', () => {
     const expected = `https://openweathermap.org/img/wn/${mockedCurrentWeather.pictureIcon}@2x.png`
     sut.renderCurrentWeatherData(mockedCurrentWeather)
