@@ -53,5 +53,6 @@ export class WeatherView {
   renderCurrentWeatherData (weatherData: CurrentWeather) {
     this.#currentWeatherImage.src = `https://openweathermap.org/img/wn/${weatherData.pictureIcon}@2x.png`
     this.#currentWeatherTitle.textContent = weatherData.mainWeather
+    this.#currentTemperature.textContent = `${weatherData.temperature}°F`
   }
 }
