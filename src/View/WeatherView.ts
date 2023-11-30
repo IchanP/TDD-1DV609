@@ -12,7 +12,7 @@ export class WeatherView {
    * @param {HTMLImageElement} currentWeatherImage - The image element that displays the current weather.
    * @param {HTMLHeadingElement} currentWeatherTitle - The title element that displays the current weather.
    * @param {HTMLHeadingElement} currentTemperature - The title element that displays the current temperature.
-   * @param selectElement
+   * @param {HTMLSelectElement} selectElement - The select element that decides the current temperature style.
    */
   constructor (currentWeatherImage: HTMLImageElement, currentWeatherTitle: HTMLHeadingElement, currentTemperature: HTMLHeadingElement,
     selectElement: HTMLSelectElement) {
@@ -71,6 +71,14 @@ export class WeatherView {
   renderCurrentWeatherData (weatherData: CurrentWeather) {
     this.#currentWeatherImage.src = `https://openweathermap.org/img/wn/${weatherData.pictureIcon}@2x.png`
     this.#currentWeatherTitle.textContent = weatherData.mainWeather
-    this.#currentTemperature.textContent = `${weatherData.temperature}°F`
+    for (const option of this.#selectElement.options) {
+      if (option.selected) {
+        if (option.value === 'Celsius') {
+          this.#currentTemperature.textContent = `${weatherData.temperature}°C`
+        } else {
+          this.#currentTemperature.textContent = `${weatherData.temperature}°F`
+        }
+      }
+    }
   }
 }
