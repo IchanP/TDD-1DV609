@@ -44,4 +44,10 @@ describe('HTML', () => {
     expect(elementToExist).not.toBeNull()
     expect(elementToExist?.tagName).toBe('P')
   })
+
+  it('should have a h2 element with id cityLocation', () => {
+    const elementToExist = sut.getElementById('cityLocation')
+    expect(elementToExist).not.toBeNull()
+    expect(elementToExist?.tagName).toBe('H2')
+  })
 })
