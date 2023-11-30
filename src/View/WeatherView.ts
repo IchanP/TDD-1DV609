@@ -37,12 +37,7 @@ export class WeatherView {
    * @returns {string} - Returns the value of the temperature style.
    */
   get currentSelectedTemperature (): string {
-    for (const option of this.#selectElement.options) {
-      if (option.selected) {
-        return option.value
-      }
-    }
-    return ''
+    return this.#getSelectedTempValue() || ''
   }
 
   /**
@@ -71,13 +66,22 @@ export class WeatherView {
   renderCurrentWeatherData (weatherData: CurrentWeather) {
     this.#currentWeatherImage.src = `https://openweathermap.org/img/wn/${weatherData.pictureIcon}@2x.png`
     this.#currentWeatherTitle.textContent = weatherData.mainWeather
+    if (this.#getSelectedTempValue() === 'Celsius') {
+      this.#currentTemperature.textContent = `${weatherData.temperature}°C`
+    } else {
+      this.#currentTemperature.textContent = `${weatherData.temperature}°F`
+    }
+  }
+
+  /**
+   * Returns the value of the selected temperature.
+   *
+   * @returns {any} - Returns the value of the selected temperature.
+   */
+  #getSelectedTempValue () : any {
     for (const option of this.#selectElement.options) {
       if (option.selected) {
-        if (option.value === 'Celsius') {
-          this.#currentTemperature.textContent = `${weatherData.temperature}°C`
-        } else {
-          this.#currentTemperature.textContent = `${weatherData.temperature}°F`
-        }
+        return option.value
       }
     }
   }
