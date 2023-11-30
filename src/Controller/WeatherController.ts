@@ -11,6 +11,7 @@ export class WeatherController {
   #cityInput: HTMLInputElement
   #locationService : ILocationService
   #dataService : WeatherDataService
+  #weatherImage : HTMLImageElement
   /**
    * Initializes the fields of the class.
    *
@@ -25,6 +26,7 @@ export class WeatherController {
     , weatherImage : HTMLImageElement, locationService : ILocationService, weatherDataService : WeatherDataService) {
     this.#cityInput = cityInputElement
     this.#countryCodeInput = countryCodeInputElement
+    this.#weatherImage = weatherImage
     this.#submitButton = submitButton
     this.#locationService = locationService
     this.#dataService = weatherDataService
@@ -38,6 +40,15 @@ export class WeatherController {
    */
   get submitButton (): HTMLButtonElement {
     return this.#submitButton
+  }
+
+  /**
+   * Returns the weather image element.
+   *
+   * @returns {HTMLImageElement} - Returns the private field.
+   */
+  get weatherImage (): HTMLImageElement {
+    return this.#weatherImage
   }
 
   /**
