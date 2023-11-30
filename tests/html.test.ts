@@ -17,4 +17,9 @@ describe('HTML', () => {
     expect(elementToExist).not.toBeNull()
     expect(elementToExist?.tagName).toBe('H1')
   })
+  it('should have a H1 element with id temp', () => {
+    const elementToExist = sut.getElementById('temp')
+    expect(elementToExist).not.toBeNull()
+    expect(elementToExist?.tagName).toBe('H1')
+  })
 })
