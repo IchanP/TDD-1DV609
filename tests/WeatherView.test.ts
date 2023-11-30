@@ -20,99 +20,77 @@ describe('WeatherView', () => {
   beforeAll(() => {
     sut = new WeatherView(currentWeatherImage, weatherTitle, currentTemperature, selectElement, errorMessage)
   })
+
   beforeEach(() => {
     celsiusElement.selected = true
     errorMessage.textContent = ''
   })
 
-  it('should have a field for the current weather image', () => {
-    expect(sut.currentWeatherImage).toBeDefined()
-  })
-  it('should have a field for the current weather title', () => {
-    expect(sut.currentWeatherTitle).toBeDefined()
-  })
-  it('should have a field for the current temperature', () => {
-    expect(sut.currentTemperature).toBeDefined()
-  })
-  it('should have a field for the current selected temperature', () => {
-    expect(sut.currentSelectedTemperature).toBeDefined()
-  })
-  it('should have a field for the error display', () => {
-    expect(sut.errorMessage).toBeDefined()
-  })
+  verifyFieldDefined('currentWeatherImage')
+  verifyFieldDefined('currentWeatherTitle')
+  verifyFieldDefined('currentTemperature')
+  verifyFieldDefined('currentSelectedTemperature')
+  verifyFieldDefined('errorMessage')
 
   it('currentSelectedTemperature should return the value of the selected temperature', () => {
-    const sut = new WeatherView(currentWeatherImage, weatherTitle, currentTemperature, selectElement, errorMessage)
-    const expeted = 'Celsius'
-    const actual = sut.currentSelectedTemperature
-    expect(actual).toBe(expeted)
-    fahrenheitElement.selected = true
-    const actual2 = sut.currentSelectedTemperature
-    const expectedTwo = 'Fahrenheit'
-    expect(actual2).toBe(expectedTwo)
+    setTemperatureUnit('Celsius')
+    expect(sut.currentSelectedTemperature).toBe('Celsius')
+
+    setTemperatureUnit('Fahrenheit')
+    expect(sut.currentSelectedTemperature).toBe('Fahrenheit')
   })
 
-  it('renderCurrentWeatherData should set the src attribute of the currentWeatherImage to correct value', () => {
-    const expected = `https://openweathermap.org/img/wn/${mockedCurrentWeather.pictureIcon}@2x.png`
-    sut.renderCurrentWeatherData(mockedCurrentWeather)
-    const actual = sut.currentWeatherImage.src
-    expect(actual).toBe(expected)
-  })
-  it('renderCurrentWeatherData should set the textcontent of currentWeatherTitle to correct value', () => {
-    const expected = mockedCurrentWeather.mainWeather
-    sut.renderCurrentWeatherData(mockedCurrentWeather)
-    const actual = sut.currentWeatherTitle
-    expect(actual).toBe(expected)
-  })
-  it('renderCurrentWeatherData should set the textcontent of currentTemperature to correct value', () => {
-    const expected = `${mockedCurrentWeather.temperature}°C`
-    sut.renderCurrentWeatherData(mockedCurrentWeather)
-    const actual = sut.currentTemperature
-    expect(actual).toBe(expected)
-  })
-  it('renderCurrentWeatherData should set F or C depending on the selected temperature', () => {
-    sut.renderCurrentWeatherData(mockedCurrentWeather)
-    const expected = `${mockedCurrentWeather.temperature}°C`
-    const actual = sut.currentTemperature
-    expect(actual).toBe(expected)
-
-    fahrenheitElement.selected = true
-
-    sut.renderCurrentWeatherData(mockedCurrentWeather)
-    const expected2 = `${mockedCurrentWeather.temperature}°F`
-    const actual2 = sut.currentTemperature
-    expect(actual2).toBe(expected2)
+  it('renderCurrentWeatherData should set correct values', () => {
+    testRenderCurrentWeatherData('Celsius', `${mockedCurrentWeather.temperature}°C`)
+    testRenderCurrentWeatherData('Fahrenheit', `${mockedCurrentWeather.temperature}°F`)
   })
 
-  it('displayError should set the textcontent of element passed as errorMessage in constructor to the error message', () => {
+  it('displayError should set the textcontent of errorMessage to the error message', () => {
     const error = new Error('Test error')
-    const expected = error.message
-
     sut.displayError(error)
-    const actual = errorMessage.textContent
-    expect(actual).toBe(expected)
+    expect(errorMessage.textContent).toBe(error.message)
   })
 
-  it('errorMessage should return value of errorMessage element', () => {
-    errorMessage.textContent = 'Test error'
-    const expected = errorMessage.textContent
-    const actual = sut.errorMessage
-    expect(actual).toBe(expected)
-
-    errorMessage.textContent = 'Test Error Two'
-    const expected2 = errorMessage.textContent
-    const actual2 = sut.errorMessage
-    expect(actual2).toBe(expected2)
-  })
   it('errorMessage should reset on successful fetch', () => {
     errorMessage.textContent = 'Test error'
-    let expected = 'Test error'
-    let actual = sut.errorMessage
-    expect(actual).toBe(expected)
+    expect(sut.errorMessage).toBe('Test error')
 
     sut.renderCurrentWeatherData(mockedCurrentWeather)
-    expected = ''
-    actual = sut.errorMessage
-    expect(actual).toBe(expected)
+    expect(sut.errorMessage).toBe('')
   })
 })
+
+/**
+ * Verifies that the field is defined on the WeatherView.
+ *
+ * @param {K} fieldName - Key for WeatherView field.
+ */
+function verifyFieldDefined<K extends keyof WeatherView> (fieldName: K) {
+  it(`should have a field for the ${fieldName}`, () => {
+    expect(sut[fieldName]).toBeDefined()
+  })
+}
+
+/**
+ * Sets the temperature unit.
+ *
+ * @param {string} unit - The unit to set.
+ */
+function setTemperatureUnit (unit : string) {
+  celsiusElement.selected = unit === 'Celsius'
+  fahrenheitElement.selected = unit === 'Fahrenheit'
+}
+
+/**
+ * Tests the renderCurrentWeatherData function.
+ *
+ * @param {string} unit - The unit to set.
+ * @param {string} expectedTemp - The expected temperature.
+ */
+function testRenderCurrentWeatherData (unit :string, expectedTemp : string) {
+  setTemperatureUnit(unit)
+  sut.renderCurrentWeatherData(mockedCurrentWeather)
+  expect(sut.currentWeatherImage.src).toBe(`https://openweathermap.org/img/wn/${mockedCurrentWeather.pictureIcon}@2x.png`)
+  expect(sut.currentWeatherTitle).toBe(mockedCurrentWeather.mainWeather)
+  expect(sut.currentTemperature).toBe(expectedTemp)
+}
