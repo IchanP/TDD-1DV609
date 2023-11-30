@@ -5,11 +5,22 @@ import { WeatherView } from '../src/View/WeatherView'
 const currentWeatherImage = document.createElement('img')
 const weatherTitle = document.createElement('h1')
 const currentTemperature = document.createElement('h1')
-const selectOptions = document.createElement('select')
+const selectElement = document.createElement('select')
+const celsiusElement = document.createElement('option')
+const fahrenheitElement = document.createElement('option')
+celsiusElement.value = 'Celsius'
+fahrenheitElement.value = 'Fahrenheit'
+selectElement.appendChild(fahrenheitElement)
+selectElement.appendChild(celsiusElement)
+celsiusElement.selected = true
+
 let sut : WeatherView
 describe('WeatherView', () => {
   beforeAll(() => {
-    sut = new WeatherView(currentWeatherImage, weatherTitle, currentTemperature, selectOptions)
+    sut = new WeatherView(currentWeatherImage, weatherTitle, currentTemperature, selectElement)
+  })
+  beforeEach(() => {
+    celsiusElement.selected = true
   })
 
   it('should have a field for the current weather image', () => {
@@ -26,15 +37,6 @@ describe('WeatherView', () => {
   })
 
   it('currentSelectedTemperature should return the value of the selected temperature', () => {
-    const selectElement = document.createElement('select')
-    const celsiusElement = document.createElement('option')
-    celsiusElement.value = 'Celsius'
-    celsiusElement.selected = true
-    const fahrenheitElement = document.createElement('option')
-    fahrenheitElement.value = 'Fahrenheit'
-    selectElement.appendChild(fahrenheitElement)
-    selectElement.appendChild(celsiusElement)
-
     const sut = new WeatherView(currentWeatherImage, weatherTitle, currentTemperature, selectElement)
     const expeted = 'Celsius'
     const actual = sut.currentSelectedTemperature
@@ -62,5 +64,18 @@ describe('WeatherView', () => {
     sut.renderCurrentWeatherData(mockedCurrentWeather)
     const actual = sut.currentTemperature
     expect(actual).toBe(expected)
+  })
+  it('renderCurrentWeatherData should set F or C depending on the selected temperature', () => {
+    sut.renderCurrentWeatherData(mockedCurrentWeather)
+    const expected = `${mockedCurrentWeather.temperature}°C`
+    const actual = sut.currentTemperature
+    expect(actual).toBe(expected)
+
+    fahrenheitElement.selected = true
+
+    sut.renderCurrentWeatherData(mockedCurrentWeather)
+    const expected2 = `${mockedCurrentWeather.temperature}°F`
+    const actual2 = sut.currentTemperature
+    expect(actual2).toBe(expected2)
   })
 })
