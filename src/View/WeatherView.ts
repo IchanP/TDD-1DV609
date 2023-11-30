@@ -5,17 +5,21 @@ export class WeatherView {
   #currentWeatherImage: HTMLImageElement
   #currentWeatherTitle: HTMLHeadingElement
   #currentTemperature: HTMLHeadingElement
+  #selectElement: HTMLSelectElement
   /**
    * Initializes the fields.
    *
    * @param {HTMLImageElement} currentWeatherImage - The image element that displays the current weather.
-   * @param currentWeatherTitle
-   * @param currentTemperature
+   * @param {HTMLHeadingElement} currentWeatherTitle - The title element that displays the current weather.
+   * @param {HTMLHeadingElement} currentTemperature - The title element that displays the current temperature.
+   * @param selectElement
    */
-  constructor (currentWeatherImage: HTMLImageElement, currentWeatherTitle: HTMLHeadingElement, currentTemperature: HTMLHeadingElement) {
+  constructor (currentWeatherImage: HTMLImageElement, currentWeatherTitle: HTMLHeadingElement, currentTemperature: HTMLHeadingElement,
+    selectElement: HTMLSelectElement) {
     this.#currentWeatherImage = currentWeatherImage
     this.#currentWeatherTitle = currentWeatherTitle
     this.#currentTemperature = currentTemperature
+    this.#selectElement = selectElement
   }
 
   /**
@@ -33,6 +37,11 @@ export class WeatherView {
    * @returns {string} - Returns the value of the temperature style.
    */
   get currentSelectedTemperature (): string {
+    for (const option of this.#selectElement.options) {
+      if (option.selected) {
+        return option.value
+      }
+    }
     return ''
   }
 

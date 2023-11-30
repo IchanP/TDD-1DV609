@@ -100,4 +100,5 @@ export const mockedCurrentWeather = { nameOfLocation: 'Motala', temperature: 265
 const viewCurrentImage = document.createElement('img')
 const viewCurrentTitle = document.createElement('h1')
 const currentTemperature = document.createElement('h1')
-export const commonView = new WeatherView(viewCurrentImage, viewCurrentTitle, currentTemperature)
+const selectElement = document.createElement('select')
+export const commonView = new WeatherView(viewCurrentImage, viewCurrentTitle, currentTemperature, selectElement)

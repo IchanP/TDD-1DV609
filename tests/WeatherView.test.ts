@@ -5,10 +5,11 @@ import { WeatherView } from '../src/View/WeatherView'
 const currentWeatherImage = document.createElement('img')
 const weatherTitle = document.createElement('h1')
 const currentTemperature = document.createElement('h1')
+const selectOptions = document.createElement('select')
 let sut : WeatherView
 describe('WeatherView', () => {
   beforeAll(() => {
-    sut = new WeatherView(currentWeatherImage, weatherTitle, currentTemperature)
+    sut = new WeatherView(currentWeatherImage, weatherTitle, currentTemperature, selectOptions)
   })
 
   it('should have a field for the current weather image', () => {
