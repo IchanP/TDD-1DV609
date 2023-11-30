@@ -92,4 +92,16 @@ describe('WeatherView', () => {
     const actual = errorMessage.textContent
     expect(actual).toBe(expected)
   })
+
+  it('errorMessage should return value of errorMessage element', () => {
+    errorMessage.textContent = 'Test error'
+    const expected = errorMessage.textContent
+    const actual = sut.errorMessage
+    expect(actual).toBe(expected)
+
+    errorMessage.textContent = 'Test Error Two'
+    const expected2 = errorMessage.textContent
+    const actual2 = sut.errorMessage
+    expect(actual2).toBe(expected2)
+  })
 })
