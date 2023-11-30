@@ -26,6 +26,6 @@ export class WeatherFetcherFacade {
    */
   async fetchCurrentWeather (cityName: string, countryCode: string): Promise<CurrentWeather> {
     const latAndLong = await this.#locationService.fetchLocationData(cityName, countryCode)
-    this.#weatherDataService.fetchCurrentWeatherData(latAndLong)
+    return this.#weatherDataService.fetchCurrentWeatherData(latAndLong)
   }
 }
