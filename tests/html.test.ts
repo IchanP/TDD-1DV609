@@ -12,24 +12,11 @@ describe('HTML', () => {
     sut = dom.window.document
   })
 
-  it('should have a H1 element with id mainWeather', () => {
-    const elementToExist = sut.getElementById('mainWeather')
-    // Has to be null and not undefined as toBeDefined is not triggered on null for some ungodly reason....
-    expect(elementToExist).not.toBeNull()
-    expect(elementToExist?.tagName).toBe('H1')
-  })
-
-  it('should have a H1 element with id temp', () => {
-    const elementToExist = sut.getElementById('temp')
-    expect(elementToExist).not.toBeNull()
-    expect(elementToExist?.tagName).toBe('H1')
-  })
-
-  it('should have a dropdown with id tempStyle', () => {
-    const elementToExist = sut.getElementById('tempStyle')
-    expect(elementToExist).not.toBeNull()
-    expect(elementToExist?.tagName).toBe('SELECT')
-  })
+  expectElementIdToExist('H1', 'mainWeather')
+  expectElementIdToExist('H1', 'temp')
+  expectElementIdToExist('SELECT', 'tempStyle')
+  expectElementIdToExist('P', 'errorMessage')
+  expectElementIdToExist('H2', 'cityLocation')
 
   it('tempStyle dropdown should have options Celsius and Fahrenheit', () => {
     const elementToExist = sut.getElementById('tempStyle')
@@ -38,16 +25,18 @@ describe('HTML', () => {
     expect(optionOne.value).toBe('Celsius')
     expect(optionTwo.value).toBe('Fahrenheit')
   })
-
-  it('should have a p element with id errorMessage', () => {
-    const elementToExist = sut.getElementById('errorMessage')
-    expect(elementToExist).not.toBeNull()
-    expect(elementToExist?.tagName).toBe('P')
-  })
-
-  it('should have a h2 element with id cityLocation', () => {
-    const elementToExist = sut.getElementById('cityLocation')
-    expect(elementToExist).not.toBeNull()
-    expect(elementToExist?.tagName).toBe('H2')
-  })
 })
+
+/**
+ * Helper function to verify that a field is defined on the sut.
+ *
+ * @param {string} elementType - The type of element to expect.
+ * @param {string} id - The id of the element to expect.
+ */
+function expectElementIdToExist (elementType : string, id : string) {
+  it(`should have a ${elementType} element with id ${id}`, () => {
+    const elementToExist = sut.getElementById(id)
+    expect(elementToExist).not.toBeNull()
+    expect(elementToExist?.tagName).toBe(elementType)
+  })
+}
