@@ -7,6 +7,7 @@ const weatherTitle = document.createElement('h1')
 const currentTemperature = document.createElement('h1')
 const selectElement = document.createElement('select')
 const celsiusElement = document.createElement('option')
+const errorMessage = document.createElement('p')
 const fahrenheitElement = document.createElement('option')
 celsiusElement.value = 'Celsius'
 fahrenheitElement.value = 'Fahrenheit'
@@ -17,7 +18,7 @@ celsiusElement.selected = true
 let sut : WeatherView
 describe('WeatherView', () => {
   beforeAll(() => {
-    sut = new WeatherView(currentWeatherImage, weatherTitle, currentTemperature, selectElement)
+    sut = new WeatherView(currentWeatherImage, weatherTitle, currentTemperature, selectElement, errorMessage)
   })
   beforeEach(() => {
     celsiusElement.selected = true
@@ -80,5 +81,13 @@ describe('WeatherView', () => {
     const expected2 = `${mockedCurrentWeather.temperature}°F`
     const actual2 = sut.currentTemperature
     expect(actual2).toBe(expected2)
+  })
+
+  it('displayError should set the textcontent of element passed as errorMessage in constructor to the error message', () => {
+    const sut = new WeatherView(currentWeatherImage, weatherTitle, currentTemperature, selectElement, errorMessage)
+    const expected = 'Error message'
+    sut.displayError(expected)
+    const actual = errorMessage.textContent
+    expect(actual).toBe(expected)
   })
 })
