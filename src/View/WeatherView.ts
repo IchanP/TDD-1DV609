@@ -28,6 +28,15 @@ export class WeatherView {
   }
 
   /**
+   * Returns the current selected temperature style.
+   *
+   * @returns {string} - Returns the value of the temperature style.
+   */
+  get currentSelectedTemperature (): string {
+    return ''
+  }
+
+  /**
    * Returns the currentweather title elements text content.
    *
    * @returns {string} - Returns the value of the title element.
