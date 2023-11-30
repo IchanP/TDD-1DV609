@@ -7,7 +7,8 @@ const currentWeatherImage = document.getElementById('weather-image') as HTMLImag
 const weatherTitle = document.getElementById('mainWeather') as HTMLHeadingElement
 const currentTemperature = document.getElementById('temp') as HTMLHeadingElement
 const dropDown = document.getElementById('tempStyle') as HTMLSelectElement
-const view = new WeatherView(currentWeatherImage, weatherTitle, currentTemperature)
+const errorMessage = document.getElementById('errorMessage') as HTMLParagraphElement
+const view = new WeatherView(currentWeatherImage, weatherTitle, currentTemperature, dropDown, errorMessage)
 
 const cityInput = document.getElementById('cityname-input') as HTMLInputElement
 const countryCodeInput = document.getElementById('countrycode-input') as HTMLInputElement

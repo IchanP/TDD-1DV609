@@ -104,4 +104,15 @@ describe('WeatherView', () => {
     const actual2 = sut.errorMessage
     expect(actual2).toBe(expected2)
   })
+  it('errorMessage should reset on successful fetch', () => {
+    errorMessage.textContent = 'Test error'
+    let expected = 'Test error'
+    let actual = sut.errorMessage
+    expect(actual).toBe(expected)
+
+    sut.renderCurrentWeatherData(mockedCurrentWeather)
+    expected = ''
+    actual = sut.errorMessage
+    expect(actual).toBe(expected)
+  })
 })
