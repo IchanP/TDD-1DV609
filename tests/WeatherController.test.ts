@@ -26,10 +26,12 @@ describe('WeatherController', () => {
   it('constructor should accept three elements as argument', () => {
     expect(sut).toBeDefined()
   })
+
   it('should have properties for cityInput, countryCodeInput and submitButton', () => {
     expect(sut.cityInput).toBeDefined()
     expect(sut.countryCodeInput).toBeDefined()
   })
+
   it('should have a property for the view', () => {
     expect(sut.view).toBeDefined()
   })
