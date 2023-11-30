@@ -76,7 +76,7 @@ export class WeatherView {
    * @param {Error} errorToDisplay - Error to display in view.
    */
   displayError (errorToDisplay: any) {
-    this.#errorElement.textContent = errorToDisplay
+    this.#errorElement.textContent = errorToDisplay.message
   }
 
   /**

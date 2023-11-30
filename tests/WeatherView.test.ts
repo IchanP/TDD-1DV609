@@ -22,6 +22,7 @@ describe('WeatherView', () => {
   })
   beforeEach(() => {
     celsiusElement.selected = true
+    errorMessage.textContent = ''
   })
 
   it('should have a field for the current weather image', () => {
@@ -84,9 +85,10 @@ describe('WeatherView', () => {
   })
 
   it('displayError should set the textcontent of element passed as errorMessage in constructor to the error message', () => {
-    const sut = new WeatherView(currentWeatherImage, weatherTitle, currentTemperature, selectElement, errorMessage)
-    const expected = 'Error message'
-    sut.displayError(expected)
+    const error = new Error('Test error')
+    const expected = error.message
+
+    sut.displayError(error)
     const actual = errorMessage.textContent
     expect(actual).toBe(expected)
   })
