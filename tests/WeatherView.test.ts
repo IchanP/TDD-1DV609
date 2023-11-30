@@ -31,4 +31,10 @@ describe('WeatherView', () => {
     const actual = sut.currentWeatherTitle
     expect(actual).toBe(expected)
   })
+  it('renderCurrentWeatherData should set the textcontent of currentTemperature to correct value', () => {
+    const expected = `${mockedCurrentWeather.temperature}°F`
+    sut.renderCurrentWeatherData(mockedCurrentWeather)
+    const actual = sut.currentTemperature
+    expect(actual).toBe(expected)
+  })
 })
