@@ -1,5 +1,5 @@
 import { jest } from '@jest/globals'
-import { mockedCurrentWeather } from './utils/testUtils'
+import { mockedCurrentWeather, commonView } from './utils/testUtils'
 import { WeatherView } from '../src/View/WeatherView'
 
 const currentWeatherImage = document.createElement('img')
@@ -39,6 +39,10 @@ describe('WeatherView', () => {
     const expeted = 'Celsius'
     const actual = sut.currentSelectedTemperature
     expect(actual).toBe(expeted)
+    fahrenheitElement.selected = true
+    const actual2 = sut.currentSelectedTemperature
+    const expectedTwo = 'Fahrenheit'
+    expect(actual2).toBe(expectedTwo)
   })
 
   it('renderCurrentWeatherData should set the src attribute of the currentWeatherImage to correct value', () => {
