@@ -27,4 +27,11 @@ describe('HTML', () => {
     expect(elementToExist).not.toBeNull()
     expect(elementToExist?.tagName).toBe('SELECT')
   })
+  it('tempStyle dropdown should have options Celsius and Fahrenheit', () => {
+    const elementToExist = sut.getElementById('tempStyle')
+    const optionOne : HTMLOptionElement = elementToExist?.children[0] as HTMLOptionElement
+    const optionTwo : HTMLOptionElement = elementToExist?.children[1] as HTMLOptionElement
+    expect(optionOne.value).toBe('Celsius')
+    expect(optionTwo.value).toBe('Fahrenheit')
+  })
 })
