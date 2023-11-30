@@ -107,6 +107,7 @@ export class WeatherController {
     const weatherFacade = new WeatherFetcherFacade(this.#locationService, this.#dataService)
     const currentWeather = await weatherFacade.fetchCurrentWeather(this.#cityInput.value, this.#countryCodeInput.value)
     this.#setImageSource(currentWeather.pictureIcon)
+    this.#view.renderCurrentWeatherData(currentWeather)
   }
 
   /**

@@ -9,7 +9,7 @@ import { WeatherView } from '../src/View/WeatherView.ts'
 
 jest.mock('../src/model/LocationService.ts')
 jest.mock('../src/model/WeatherFetcherFacade.ts')
-jest.mock('../src/view/WeatherView.ts')
+jest.mock('../src/View/WeatherView.ts')
 
 const cityInput = document.createElement('input')
 const countryCodeInput = document.createElement('input')
@@ -76,9 +76,9 @@ describe('WeatherController', () => {
     expect(actual).toEqual(expected)
   })
 
-  it('fetchWeatherData should call view with return value from facade', () => {
+  it('fetchWeatherData should call view with return value from facade', async () => {
     const mockView = jest.spyOn(WeatherView.prototype, 'renderCurrentWeatherData')
-    sut.fetchWeatherData()
+    await sut.fetchWeatherData()
     expect(mockView).toHaveBeenCalledWith(mockedCurrentWeather)
   })
 })

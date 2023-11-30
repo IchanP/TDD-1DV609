@@ -8,6 +8,6 @@ export class WeatherView {
    * @param {CurrentWeather} weatherData - The data to render.
    */
   renderCurrentWeatherData (weatherData: CurrentWeather) {
-    // DO NOTHING
+    // do nothing just for spying
   }
 }
