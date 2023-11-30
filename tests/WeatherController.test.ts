@@ -13,13 +13,11 @@ jest.mock('../src/View/WeatherView.ts')
 
 const cityInput = document.createElement('input')
 const countryCodeInput = document.createElement('input')
-const submitButton = document.createElement('button')
-const weatherImage = document.createElement('img')
 let sut : WeatherController
 
 describe('WeatherController', () => {
   beforeAll(() => {
-    sut = new WeatherController(cityInput, countryCodeInput, submitButton, weatherImage, new LocationService(), new WeatherDataService(), new WeatherView())
+    sut = new WeatherController(cityInput, countryCodeInput, new LocationService(), new WeatherDataService(), new WeatherView())
   })
   beforeEach(() => {
     jest.clearAllMocks()
@@ -31,10 +29,6 @@ describe('WeatherController', () => {
   it('should have properties for cityInput, countryCodeInput and submitButton', () => {
     expect(sut.cityInput).toBeDefined()
     expect(sut.countryCodeInput).toBeDefined()
-    expect(sut.submitButton).toBeDefined()
-  })
-  it('should have property for weather image', () => {
-    expect(sut.weatherImage).toBeDefined()
   })
   it('should have a property for the view', () => {
     expect(sut.view).toBeDefined()
@@ -67,13 +61,6 @@ describe('WeatherController', () => {
 
     const expected = (locationField === firstArgument) && (dataField === secondArgument)
     expect(expected).toBeTruthy()
-  })
-
-  it('fetchWeatherData should set weatherImage src to the returned weather image', async () => {
-    await sut.fetchWeatherData()
-    const expected = `https://openweathermap.org/img/wn/${mockedCurrentWeather.pictureIcon}@2x.png`
-    const actual = sut.weatherImage.src
-    expect(actual).toEqual(expected)
   })
 
   it('fetchWeatherData should call view with return value from facade', async () => {

@@ -7,12 +7,10 @@ import { WeatherFetcherFacade } from '../model/WeatherFetcherFacade.ts'
  * Works as the controller between the view and the model.
  */
 export class WeatherController {
-  #submitButton: HTMLButtonElement
   #countryCodeInput: HTMLInputElement
   #cityInput: HTMLInputElement
   #locationService : ILocationService
   #dataService : WeatherDataService
-  #weatherImage : HTMLImageElement
   #view : WeatherView
   /**
    * Initializes the fields of the class.
@@ -25,25 +23,13 @@ export class WeatherController {
    * @param {WeatherDataService} weatherDataService - The data service to use.
    * @param {WeatherView} view - The view to use.
    */
-  constructor (cityInputElement : HTMLInputElement, countryCodeInputElement : HTMLInputElement, submitButton : HTMLButtonElement
-    , weatherImage : HTMLImageElement, locationService : ILocationService, weatherDataService : WeatherDataService, view : WeatherView) {
+  constructor (cityInputElement : HTMLInputElement, countryCodeInputElement : HTMLInputElement, locationService : ILocationService, weatherDataService : WeatherDataService, view : WeatherView) {
     this.#cityInput = cityInputElement
     this.#countryCodeInput = countryCodeInputElement
-    this.#weatherImage = weatherImage
-    this.#submitButton = submitButton
     this.#locationService = locationService
     this.#dataService = weatherDataService
     this.#dataService.addProvider(new WeatherDataProvider())
     this.#view = view
-  }
-
-  /**
-   * Returns the city input element.
-   *
-   * @returns {HTMLButtonElement} - Returns the private field.
-   */
-  get submitButton (): HTMLButtonElement {
-    return this.#submitButton
   }
 
   /**
@@ -53,15 +39,6 @@ export class WeatherController {
    */
   get view (): WeatherView {
     return this.#view
-  }
-
-  /**
-   * Returns the weather image element.
-   *
-   * @returns {HTMLImageElement} - Returns the private field.
-   */
-  get weatherImage (): HTMLImageElement {
-    return this.#weatherImage
   }
 
   /**
@@ -106,17 +83,6 @@ export class WeatherController {
   async fetchWeatherData (): Promise<void> {
     const weatherFacade = new WeatherFetcherFacade(this.#locationService, this.#dataService)
     const currentWeather = await weatherFacade.fetchCurrentWeather(this.#cityInput.value, this.#countryCodeInput.value)
-    this.#setImageSource(currentWeather.pictureIcon)
     this.#view.renderCurrentWeatherData(currentWeather)
-  }
-
-  /**
-   * Sets the image source for the private field.
-   *
-   * @param {string} iconValue - The icon value.
-   */
-  #setImageSource (iconValue: string) : void {
-    const url = `https://openweathermap.org/img/wn/${iconValue}@2x.png`
-    this.#weatherImage.src = url
   }
 }

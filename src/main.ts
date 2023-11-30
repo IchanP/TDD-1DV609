@@ -10,7 +10,7 @@ const weatherImage = document.getElementById('weather-image') as HTMLImageElemen
 const locationService = new LocationService()
 const dataService = new WeatherDataService()
 const view = new WeatherView()
-const weatherController = new WeatherController(cityInput, countryCodeInput, submitButton, weatherImage, locationService, dataService, view)
+const weatherController = new WeatherController(cityInput, countryCodeInput, locationService, dataService, view)
 
 submitButton.addEventListener('click', async () => {
   await weatherController.fetchWeatherData()
