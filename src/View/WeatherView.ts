@@ -40,7 +40,7 @@ export class WeatherView {
    * @returns {string} - Returns the value of the temperature style.
    */
   get currentSelectedTemperature (): string {
-    return this.#getSelectedTempValue() || ''
+    return this.#getSelectedTempValue()
   }
 
   /**
@@ -49,7 +49,7 @@ export class WeatherView {
    * @returns {string} - Returns the value of the error message element.
    */
   get errorMessage (): string {
-    return ''
+    return this.#errorElement.textContent || ''
   }
 
   /**
