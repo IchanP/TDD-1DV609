@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals'
 import { WeatherDataService } from '../src/model/WeatherDataService'
-import { isCurrentWeather } from './utils/testUtils'
+import { isCurrentWeather, mockedCurrentWeather } from './utils/testUtils'
 import { WeatherDataProvider } from '../src/model/WeatherDataProvider'
 
 jest.mock('../src/model/WeatherDataProvider.ts')
@@ -21,7 +21,7 @@ describe('WeatherDataService', () => {
     expect(mockedFetchCurrentWeatherData).toHaveBeenCalledWith(placeHolderLocationData)
   })
   it('fetcCurrentWeatherData should return values based on provider response', async () => {
-    const expected = { nameOfLocation: 'Motala', temperature: 265.47, description: 'scattered clouds', mainWeather: 'Clouds', pictureIcon: '03n' }
+    const expected = mockedCurrentWeather
     const actual = await sut.fetchCurrentWeatherData(placeHolderLocationData)
     expect(actual).toEqual(expected)
   })

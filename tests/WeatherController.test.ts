@@ -35,7 +35,7 @@ describe('WeatherController', () => {
   })
 
   it('should call fetchWeatherData on WeatherFetcherFacade with values from cityInput and countryCodeInput', () => {
-    const mockFetchWeatherData = jest.spyOn(WeatherFetcherFacade.prototype, 'fetchWeatherData')
+    const mockFetchWeatherData = jest.spyOn(WeatherFetcherFacade.prototype, 'fetchCurrentWeather')
     const city = 'Motala'
     const countryCode = 'SE'
     cityInput.value = city

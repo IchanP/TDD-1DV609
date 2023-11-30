@@ -92,3 +92,5 @@ export const mockedCurrentWeatherValue = {
   name: 'Motala',
   cod: 200
 }
+
+export const mockedCurrentWeather = { nameOfLocation: 'Motala', temperature: 265.47, description: 'scattered clouds', mainWeather: 'Clouds', pictureIcon: '03n' }

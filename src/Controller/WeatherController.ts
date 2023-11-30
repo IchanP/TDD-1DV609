@@ -80,6 +80,6 @@ export class WeatherController {
    */
   async fetchWeatherData (): Promise<void> {
     const weatherFacade = new WeatherFetcherFacade(this.#locationService, this.#dataService)
-    weatherFacade.fetchWeatherData(this.#cityInput.value, this.#countryCodeInput.value)
+    weatherFacade.fetchCurrentWeather(this.#cityInput.value, this.#countryCodeInput.value)
   }
 }

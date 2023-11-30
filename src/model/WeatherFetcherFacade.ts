@@ -22,8 +22,9 @@ export class WeatherFetcherFacade {
    *
    * @param {string} cityName - The name of the city for which to fetch weather data.
    * @param {string} countryCode - The country code in ISO 3166 alpha-2 format https://www.iso.org/obp/ui/#search/code/
+   * @returns {Promise<CurrentWeather>} - Returns a promise fetched from the DataService.
    */
-  async fetchWeatherData (cityName: string, countryCode: string): Promise<any> {
+  async fetchCurrentWeather (cityName: string, countryCode: string): Promise<CurrentWeather> {
     const latAndLong = await this.#locationService.fetchLocationData(cityName, countryCode)
     this.#weatherDataService.fetchCurrentWeatherData(latAndLong)
   }

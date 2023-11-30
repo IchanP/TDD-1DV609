@@ -3,6 +3,7 @@ import { WeatherFetcherFacade } from '../src/model/WeatherFetcherFacade'
 import { jest } from '@jest/globals'
 import { LocationService } from '../src/model/LocationService.ts'
 import { WeatherDataService } from '../src/model/WeatherDataService.ts'
+import { mockedCurrentWeather } from './utils/testUtils.ts'
 
 jest.mock('../src/model/LocationService.ts')
 jest.mock('../src/model/WeatherDataService.ts')
@@ -21,7 +22,7 @@ describe('Fetches longitude and latitude', () => {
   })
 
   beforeEach(() => {
-    sut.fetchWeatherData(city, countryCode)
+    sut.fetchCurrentWeather(city, countryCode)
   })
 
   it('should call LocationService', () => {
@@ -31,5 +32,10 @@ describe('Fetches longitude and latitude', () => {
   it('should call WeatherDataService with LocationService return value', async () => {
     const expectedCallValue = await serviceLocationDataStub.mock.results[0].value
     expect(weatherServiceStub).toHaveBeenCalledWith(expectedCallValue)
+  })
+  it('should return the CurrentWeather object from WeatherDataService', async () => {
+    const expected = mockedCurrentWeather
+    const actual = await sut.fetchCurrentWeather(city, countryCode)
+    expect(actual).toEqual(expected)
   })
 })

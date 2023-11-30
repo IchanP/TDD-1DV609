@@ -26,7 +26,7 @@ export class WeatherFetcherFacade {
    * @param {string} countryCode - The country code in ISO 3166 alpha-2 format https://www.iso.org/obp/ui/#search/code/
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  fetchWeatherData (_cityName: string, countryCode: string) {
+  fetchCurrentWeather (_cityName: string, countryCode: string) {
     // Do nothing
   }
 }
