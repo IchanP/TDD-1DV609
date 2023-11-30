@@ -10,6 +10,7 @@ describe('WeatherView', () => {
   beforeAll(() => {
     sut = new WeatherView(currentWeatherImage, weatherTitle, currentTemperature)
   })
+
   it('should have a field for the current weather image', () => {
     expect(sut.currentWeatherImage).toBeDefined()
   })
@@ -24,8 +25,21 @@ describe('WeatherView', () => {
   })
 
   it('currentSelectedTemperature should return the value of the selected temperature', () => {
-    // TODO: Implement this test.
+    const selectElement = document.createElement('select')
+    const celsiusElement = document.createElement('option')
+    celsiusElement.value = 'Celsius'
+    celsiusElement.selected = true
+    const fahrenheitElement = document.createElement('option')
+    fahrenheitElement.value = 'Fahrenheit'
+    selectElement.appendChild(fahrenheitElement)
+    selectElement.appendChild(celsiusElement)
+
+    const sut = new WeatherView(currentWeatherImage, weatherTitle, currentTemperature, selectElement)
+    const expeted = 'Celsius'
+    const actual = sut.currentSelectedTemperature
+    expect(actual).toBe(expeted)
   })
+
   it('renderCurrentWeatherData should set the src attribute of the currentWeatherImage to correct value', () => {
     const expected = `https://openweathermap.org/img/wn/${mockedCurrentWeather.pictureIcon}@2x.png`
     sut.renderCurrentWeatherData(mockedCurrentWeather)
