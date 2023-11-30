@@ -6,6 +6,7 @@ export class WeatherView {
   #currentWeatherTitle: HTMLHeadingElement
   #currentTemperature: HTMLHeadingElement
   #selectElement: HTMLSelectElement
+  #errorElement: HTMLParagraphElement
   /**
    * Initializes the fields.
    *
@@ -13,13 +14,15 @@ export class WeatherView {
    * @param {HTMLHeadingElement} currentWeatherTitle - The title element that displays the current weather.
    * @param {HTMLHeadingElement} currentTemperature - The title element that displays the current temperature.
    * @param {HTMLSelectElement} selectElement - The select element that decides the current temperature style.
+   * @param errorElement
    */
   constructor (currentWeatherImage: HTMLImageElement, currentWeatherTitle: HTMLHeadingElement, currentTemperature: HTMLHeadingElement,
-    selectElement: HTMLSelectElement) {
+    selectElement: HTMLSelectElement, errorElement: HTMLParagraphElement) {
     this.#currentWeatherImage = currentWeatherImage
     this.#currentWeatherTitle = currentWeatherTitle
     this.#currentTemperature = currentTemperature
     this.#selectElement = selectElement
+    this.#errorElement = errorElement
   }
 
   /**
@@ -73,7 +76,7 @@ export class WeatherView {
    * @param {Error} errorToDisplay - Error to display in view.
    */
   displayError (errorToDisplay: any) {
-
+    this.#errorElement.textContent = errorToDisplay
   }
 
   /**

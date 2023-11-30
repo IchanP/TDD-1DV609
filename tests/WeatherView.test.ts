@@ -41,7 +41,7 @@ describe('WeatherView', () => {
   })
 
   it('currentSelectedTemperature should return the value of the selected temperature', () => {
-    const sut = new WeatherView(currentWeatherImage, weatherTitle, currentTemperature, selectElement)
+    const sut = new WeatherView(currentWeatherImage, weatherTitle, currentTemperature, selectElement, errorMessage)
     const expeted = 'Celsius'
     const actual = sut.currentSelectedTemperature
     expect(actual).toBe(expeted)
