@@ -2,6 +2,7 @@ import { jest } from '@jest/globals'
 import { WeatherDataProvider } from '../src/model/WeatherDataProvider.ts'
 import { mockFetch, mockedCurrentWeatherValue } from './utils/testUtils'
 import { APIError } from '../src/model/Errors/APIError.ts'
+import { APIKEY } from '../src/testingkey.ts'
 
 let sut : WeatherDataProvider
 let locationData : LocationData
@@ -16,7 +17,7 @@ describe('WeatherDataProvider', () => {
 
   it('it should call fetch with correct url', async () => {
     mockFetch({})
-    const expected = `https://api.openweathermap.org/data/2.5/weather?lat=${locationData.lat}&lon=${locationData.lon}&appid=${process.env.API_KEY}&units=metric`
+    const expected = `https://api.openweathermap.org/data/2.5/weather?lat=${locationData.lat}&lon=${locationData.lon}&appid=${APIKEY}&units=metric`
     sut.fetchCurrentWeatherData(locationData)
     expect(global.fetch).toHaveBeenCalledWith(expected)
   })
@@ -34,7 +35,7 @@ describe('WeatherDataProvider', () => {
   })
   it('OpenWeatherMap API should be called with imperial units if passed imperial argument', () => {
     mockFetch({})
-    const expected = `https://api.openweathermap.org/data/2.5/weather?lat=${locationData.lat}&lon=${locationData.lon}&appid=${process.env.API_KEY}&units=imperial`
+    const expected = `https://api.openweathermap.org/data/2.5/weather?lat=${locationData.lat}&lon=${locationData.lon}&appid=${APIKEY}&units=imperial`
     sut.fetchCurrentWeatherData(locationData, 'imperial')
     expect(global.fetch).toHaveBeenCalledWith(expected)
   })

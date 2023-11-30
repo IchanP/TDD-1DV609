@@ -1,4 +1,5 @@
 import { WeatherController } from './Controller/WeatherController'
+import { WeatherView } from './View/WeatherView'
 import { LocationService } from './model/LocationService'
 import { WeatherDataService } from './model/WeatherDataService'
 
@@ -8,4 +9,9 @@ const submitButton = document.getElementById('gofetch-button') as HTMLButtonElem
 const weatherImage = document.getElementById('weather-image') as HTMLImageElement
 const locationService = new LocationService()
 const dataService = new WeatherDataService()
-const weatherController = new WeatherController(cityInput, countryCodeInput, submitButton, weatherImage, locationService, dataService)
+const view = new WeatherView()
+const weatherController = new WeatherController(cityInput, countryCodeInput, submitButton, weatherImage, locationService, dataService, view)
+
+submitButton.addEventListener('click', async () => {
+  await weatherController.fetchWeatherData()
+})

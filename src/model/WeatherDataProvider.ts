@@ -1,4 +1,5 @@
 import { APIError } from './Errors/APIError'
+import { APIKEY } from '../testingkey'
 
 /**
  * A wrapper for fethcing weather data from the OpenWeatherMap API.
@@ -13,7 +14,7 @@ export class WeatherDataProvider implements IWeatherProvider {
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async fetchCurrentWeatherData (latAndLong: LocationData, unitType : UnitType = 'metric') : Promise<any> {
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latAndLong.lat}&lon=${latAndLong.lon}&appid=${process.env.API_KEY}&units=${unitType}`)
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latAndLong.lat}&lon=${latAndLong.lon}&appid=${APIKEY}&units=${unitType}`)
     this.#validateFetch(response)
     const data = await response.json()
     return data

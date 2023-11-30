@@ -1,9 +1,9 @@
 import { LocationProvider } from '../src/model/LocationProvider.ts'
 import { jest } from '@jest/globals'
-import 'dotenv/config'
 import { APIError } from '../src/model/Errors/APIError.ts'
 import { InvalidAPIParamaterError } from '../src/model/Errors/InvalidAPIParamaterError.ts'
 import { mockFetch } from './utils/testUtils.ts'
+import { APIKEY } from '../src/testingkey.ts'
 
 const city = 'Motala'
 const countryCode = 'SE'
@@ -77,5 +77,5 @@ describe('LocationProvider', () => {
  * Checks that the API was called with the correct parameters.
  */
 function expectApiCall () {
-  expect(fetch).toHaveBeenCalledWith(`http://api.openweathermap.org/geo/1.0/direct?q=${city},,${countryCode}&limit=5&appid=${process.env.API_KEY}`)
+  expect(fetch).toHaveBeenCalledWith(`http://api.openweathermap.org/geo/1.0/direct?q=${city},,${countryCode}&limit=5&appid=${APIKEY}`)
 }
