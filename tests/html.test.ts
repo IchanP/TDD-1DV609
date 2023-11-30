@@ -22,4 +22,9 @@ describe('HTML', () => {
     expect(elementToExist).not.toBeNull()
     expect(elementToExist?.tagName).toBe('H1')
   })
+  it('should have a dropdown with id tempStyle', () => {
+    const elementToExist = sut.getElementById('tempStyle')
+    expect(elementToExist).not.toBeNull()
+    expect(elementToExist?.tagName).toBe('SELECT')
+  })
 })
