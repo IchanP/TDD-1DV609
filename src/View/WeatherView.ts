@@ -3,14 +3,17 @@
  */
 export class WeatherView {
   #currentWeatherImage: HTMLImageElement
+  #currentWeatherTitle: HTMLHeadingElement
 
   /**
    * Initializes the fields.
    *
    * @param {HTMLImageElement} currentWeatherImage - The image element that displays the current weather.
+   * @param currentWeatherTitle
    */
-  constructor (currentWeatherImage: HTMLImageElement) {
+  constructor (currentWeatherImage: HTMLImageElement, currentWeatherTitle: HTMLHeadingElement) {
     this.#currentWeatherImage = currentWeatherImage
+    this.#currentWeatherTitle = currentWeatherTitle
   }
 
   /**
@@ -20,6 +23,15 @@ export class WeatherView {
    */
   get currentWeatherImage (): HTMLImageElement {
     return this.#currentWeatherImage
+  }
+
+  /**
+   * Returns the currentweather title elements text content.
+   *
+   * @returns {string} - Returns the value of the title element.
+   */
+  get currentWeatherTitle (): string {
+    return this.#currentWeatherTitle.textContent || ''
   }
 
   /**

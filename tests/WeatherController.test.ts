@@ -18,7 +18,8 @@ let sut : WeatherController
 describe('WeatherController', () => {
   beforeAll(() => {
     const viewCurrentImage = document.createElement('img')
-    sut = new WeatherController(cityInput, countryCodeInput, new LocationService(), new WeatherDataService(), new WeatherView(viewCurrentImage))
+    const viewCurrentTitle = document.createElement('h1')
+    sut = new WeatherController(cityInput, countryCodeInput, new LocationService(), new WeatherDataService(), new WeatherView(viewCurrentImage, viewCurrentTitle))
   })
   beforeEach(() => {
     jest.clearAllMocks()
