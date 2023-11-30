@@ -2,15 +2,15 @@
  * Controls the DOM elements for the page.
  */
 export class WeatherView {
-  #weatherImage: HTMLImageElement
+  #currentWeatherImage: HTMLImageElement
 
   /**
    * Initializes the fields.
    *
-   * @param {HTMLImageElement} weatherImage - The image element that displays the current weather.
+   * @param {HTMLImageElement} currentWeatherImage - The image element that displays the current weather.
    */
-  constructor (weatherImage: HTMLImageElement) {
-    this.#weatherImage = weatherImage
+  constructor (currentWeatherImage: HTMLImageElement) {
+    this.#currentWeatherImage = currentWeatherImage
   }
 
   /**
@@ -18,8 +18,8 @@ export class WeatherView {
    *
    * @returns {HTMLImageElement} - Returns the private field.
    */
-  get weatherImage (): HTMLImageElement {
-    return this.#weatherImage
+  get currentWeatherImage (): HTMLImageElement {
+    return this.#currentWeatherImage
   }
 
   /**

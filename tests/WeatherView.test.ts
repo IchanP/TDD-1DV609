@@ -6,6 +6,6 @@ const currentWeatherImage = document.createElement('img')
 const sut = new WeatherView(currentWeatherImage)
 describe('WeatherView', () => {
   it('should have a field for the current weather image', () => {
-    expect(sut.weatherImage).toBeDefined()
+    expect(sut.currentWeatherImage).toBeDefined()
   })
 })
