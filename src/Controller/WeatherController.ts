@@ -1,3 +1,4 @@
+import { WeatherView } from '../View/WeatherView.ts'
 import { WeatherDataProvider } from '../model/WeatherDataProvider.ts'
 import { WeatherDataService } from '../model/WeatherDataService.ts'
 import { WeatherFetcherFacade } from '../model/WeatherFetcherFacade.ts'
@@ -12,6 +13,7 @@ export class WeatherController {
   #locationService : ILocationService
   #dataService : WeatherDataService
   #weatherImage : HTMLImageElement
+  #view : WeatherView
   /**
    * Initializes the fields of the class.
    *
@@ -21,9 +23,10 @@ export class WeatherController {
    * @param {HTMLImageElement} weatherImage - The image element to use.
    * @param {ILocationServic} locationService - The location service to use.
    * @param {WeatherDataService} weatherDataService - The data service to use.
+   * @param {WeatherView} view - The view to use.
    */
   constructor (cityInputElement : HTMLInputElement, countryCodeInputElement : HTMLInputElement, submitButton : HTMLButtonElement
-    , weatherImage : HTMLImageElement, locationService : ILocationService, weatherDataService : WeatherDataService) {
+    , weatherImage : HTMLImageElement, locationService : ILocationService, weatherDataService : WeatherDataService, view : WeatherView) {
     this.#cityInput = cityInputElement
     this.#countryCodeInput = countryCodeInputElement
     this.#weatherImage = weatherImage
@@ -31,6 +34,7 @@ export class WeatherController {
     this.#locationService = locationService
     this.#dataService = weatherDataService
     this.#dataService.addProvider(new WeatherDataProvider())
+    this.#view = view
   }
 
   /**
@@ -40,6 +44,15 @@ export class WeatherController {
    */
   get submitButton (): HTMLButtonElement {
     return this.#submitButton
+  }
+
+  /**
+   * Returns the view.
+   *
+   * @returns {WeatherView} - Returns the private field.
+   */
+  get view (): WeatherView {
+    return this.#view
   }
 
   /**
