@@ -14,7 +14,7 @@ export class WeatherView {
    * @param {HTMLHeadingElement} currentWeatherTitle - The title element that displays the current weather.
    * @param {HTMLHeadingElement} currentTemperature - The title element that displays the current temperature.
    * @param {HTMLSelectElement} selectElement - The select element that decides the current temperature style.
-   * @param errorElement
+   * @param {HTMLParagraphElement} errorElement - The paragraph element that displays the error message.
    */
   constructor (currentWeatherImage: HTMLImageElement, currentWeatherTitle: HTMLHeadingElement, currentTemperature: HTMLHeadingElement,
     selectElement: HTMLSelectElement, errorElement: HTMLParagraphElement) {

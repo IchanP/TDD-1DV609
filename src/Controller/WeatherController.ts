@@ -17,8 +17,6 @@ export class WeatherController {
    *
    * @param {HTMLInputElement} cityInputElement - The input element for the city name.
    * @param {HTMLInputElement} countryCodeInputElement - The input element for the country code.
-   * @param {HTMLButtonElement} submitButton - The button element for submitting the form.
-   * @param {HTMLImageElement} weatherImage - The image element to use.
    * @param {ILocationServic} locationService - The location service to use.
    * @param {WeatherDataService} weatherDataService - The data service to use.
    * @param {WeatherView} view - The view to use.

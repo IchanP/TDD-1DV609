@@ -19,4 +19,13 @@ export class WeatherView {
   displayError (errorToDisplay : any) {
     // do nothing just for spying
   }
+
+  /**
+   * Returns nothing currently.
+   *
+   * @returns {string} - Returns nothing currently.
+   */
+  get currentSelectedTemperature (): string {
+    return ''
+  }
 }
