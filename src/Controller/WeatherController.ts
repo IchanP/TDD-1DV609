@@ -80,7 +80,8 @@ export class WeatherController {
    */
   async fetchWeatherData (): Promise<void> {
     const weatherFacade = new WeatherFetcherFacade(this.#locationService, this.#dataService)
-    const currentWeather = await this.#tryFetchWeatherData(weatherFacade) as CurrentWeather
+    const unitType = this.#convertUnitType()
+    const currentWeather = await this.#tryFetchWeatherData(weatherFacade, unitType) as CurrentWeather
     this.#view.renderCurrentWeatherData(currentWeather)
   }
 
@@ -88,15 +89,29 @@ export class WeatherController {
    * Tries to fetch weather data from the facade.
    *
    * @param {WeatherFetcherFacade} weatherFacade - The facade to fetch data from.
+   * @param {UnitType} unitType - The unit type to use.
    * @returns {CurrentWeather} - Returns the current weather data.
    */
-  async #tryFetchWeatherData (weatherFacade : WeatherFetcherFacade) {
+  async #tryFetchWeatherData (weatherFacade : WeatherFetcherFacade, unitType : UnitType) {
     let currentWeather
     try {
-      currentWeather = await weatherFacade.fetchCurrentWeather(this.#cityInput.value, this.#countryCodeInput.value)
+      currentWeather = await weatherFacade.fetchCurrentWeather(this.#cityInput.value, this.#countryCodeInput.value, unitType)
     } catch (err) {
       this.#view.displayError(err)
     }
     return currentWeather
+  }
+
+  /**
+   * Converts the unit type to the correct format.
+   *
+   * @returns {string} - Returns the converted unit type.
+   */
+  #convertUnitType () : UnitType {
+    let convertedUnitType : UnitType = 'imperial' // Default value required due to typescript
+    if (this.#view.currentSelectedTemperature === 'Fahrenheit') {
+      convertedUnitType = 'imperial'
+    }
+    return convertedUnitType
   }
 }

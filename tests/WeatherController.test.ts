@@ -47,7 +47,7 @@ describe('WeatherController', () => {
     cityInput.value = city
     countryCodeInput.value = countryCode
     sut.fetchWeatherData()
-    expect(mockFetchWeatherData).toHaveBeenCalledWith(city, countryCode)
+    expect(mockFetchWeatherData).toHaveBeenCalledWith(city, countryCode, 'imperial')
   })
 
   it('fetchWeatherData should construct WeatherFetcherFacade with own properties', () => {
