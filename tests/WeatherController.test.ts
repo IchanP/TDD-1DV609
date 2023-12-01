@@ -84,6 +84,12 @@ describe('WeatherController', () => {
     await sut.fetchWeatherData()
     expect(mockFetchWeatherData).toHaveBeenCalledWith(cityInput.value, countryCodeInput.value, 'imperial')
   })
+
+  it('fetchWeatherData should call fetchCurrentWeather on facade with metric if currentSelectedTemperature on view is Celsius', async () => {
+    jest.spyOn(WeatherView.prototype, 'currentSelectedTemperature', 'get').mockReturnValue('Celsius')
+    await sut.fetchWeatherData()
+    expect(mockFetchWeatherData).toHaveBeenCalledWith(cityInput.value, countryCodeInput.value, 'metric')
+  })
 })
 
 /**
