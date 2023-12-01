@@ -6,6 +6,7 @@ import { jest } from '@jest/globals'
 import { WeatherDataService } from '../src/model/WeatherDataService.ts'
 import { mockedCurrentWeather, commonView } from './utils/testUtils.ts'
 import { WeatherView } from '../src/View/WeatherView.ts'
+import { SpiedFunction } from 'jest-mock'
 
 jest.mock('../src/model/LocationService.ts')
 jest.mock('../src/model/WeatherFetcherFacade.ts')
@@ -16,32 +17,29 @@ const countryCodeInput = document.createElement('input')
 let sut : WeatherController
 
 describe('WeatherController', () => {
+  let mockFetchWeatherData: SpiedFunction<(cityName: string, countryCode: string, unitType?: UnitType) => Promise<CurrentWeather>>
+  let mockRenderCurrentWeather : SpiedFunction<(currentWeather: CurrentWeather) => void>
+  let mockDisplayError: SpiedFunction<(errorToDisplay: any) => void>
   beforeAll(() => {
     sut = new WeatherController(cityInput, countryCodeInput, new LocationService(), new WeatherDataService(), commonView)
+    mockFetchWeatherData = jest.spyOn(WeatherFetcherFacade.prototype, 'fetchCurrentWeather')
+    mockRenderCurrentWeather = jest.spyOn(WeatherView.prototype, 'renderCurrentWeatherData')
+    mockDisplayError = jest.spyOn(WeatherView.prototype, 'displayError')
   })
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
+  expectPropertyToBeDefined('cityInput')
+  expectPropertyToBeDefined('countryCodeInput')
+  expectPropertyToBeDefined('view')
+  expectPropertyToBeDefined('locationService')
+
   it('constructor should accept three elements as argument', () => {
     expect(sut).toBeDefined()
   })
 
-  it('should have properties for cityInput, countryCodeInput and submitButton', () => {
-    expect(sut.cityInput).toBeDefined()
-    expect(sut.countryCodeInput).toBeDefined()
-  })
-
-  it('should have a property for the view', () => {
-    expect(sut.view).toBeDefined()
-  })
-
-  it('should have an ILocationService property', () => {
-    expect(sut.locationService).toBeDefined()
-  })
-
   it('should call fetchWeatherData on WeatherFetcherFacade with values from cityInput and countryCodeInput', () => {
-    const mockFetchWeatherData = jest.spyOn(WeatherFetcherFacade.prototype, 'fetchCurrentWeather')
     const city = 'Motala'
     const countryCode = 'SE'
     cityInput.value = city
@@ -66,27 +64,35 @@ describe('WeatherController', () => {
   })
 
   it('fetchWeatherData should call view with return value from facade', async () => {
-    const mockView = jest.spyOn(WeatherView.prototype, 'renderCurrentWeatherData')
     await sut.fetchWeatherData()
-    expect(mockView).toHaveBeenCalledWith(mockedCurrentWeather)
+    expect(mockRenderCurrentWeather).toHaveBeenCalledWith(mockedCurrentWeather)
   })
 
   it('fetchWeatherData should call displayError on view with error if facade throws error', async () => {
-    const mockView = jest.spyOn(WeatherView.prototype, 'displayError')
     const mockedError = new Error()
-    jest.spyOn(WeatherFetcherFacade.prototype, 'fetchCurrentWeather').mockImplementationOnce(async (cityName: string, countryCode: string) => {
+    mockFetchWeatherData.mockImplementationOnce(async (cityName: string, countryCode: string) => {
       throw mockedError
       // eslint-disable-next-line no-unreachable
       return mockedCurrentWeather
     })
     await sut.fetchWeatherData()
-    expect(mockView).toHaveBeenCalledWith(mockedError)
+    expect(mockDisplayError).toHaveBeenCalledWith(mockedError)
   })
 
   it('fetchWeatherData should call fetchCurrentWeather on facade with imperial if currentSelectedTemperature on view is Fahrenheit', async () => {
     jest.spyOn(WeatherView.prototype, 'currentSelectedTemperature', 'get').mockReturnValue('Fahrenheit')
-    const mockFacade = jest.spyOn(WeatherFetcherFacade.prototype, 'fetchCurrentWeather')
     await sut.fetchWeatherData()
-    expect(mockFacade).toHaveBeenCalledWith(cityInput.value, countryCodeInput.value, 'imperial')
+    expect(mockFetchWeatherData).toHaveBeenCalledWith(cityInput.value, countryCodeInput.value, 'imperial')
   })
 })
+
+/**
+ * Verifies that the property is defined on the WeatherController.
+ *
+ * @param {K} property - The property to check.
+ */
+function expectPropertyToBeDefined<K extends keyof WeatherController> (property : K) {
+  it(`should have a property for the ${property}`, () => {
+    expect(sut[property]).toBeDefined()
+  })
+}
