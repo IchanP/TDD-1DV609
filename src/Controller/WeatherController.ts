@@ -111,6 +111,8 @@ export class WeatherController {
     let convertedUnitType : UnitType = 'imperial' // Default value required due to typescript
     if (this.#view.currentSelectedTemperature === 'Fahrenheit') {
       convertedUnitType = 'imperial'
+    } if (this.#view.currentSelectedTemperature === 'Celsius') {
+      convertedUnitType = 'metric'
     }
     return convertedUnitType
   }
