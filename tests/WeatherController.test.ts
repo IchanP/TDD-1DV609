@@ -4,7 +4,7 @@ import { MockWeatherFetcherFacade } from '../src/model/__mocks__/WeatherFetcherF
 import { LocationService } from '../src/model/LocationService.ts'
 import { jest } from '@jest/globals'
 import { WeatherDataService } from '../src/model/WeatherDataService.ts'
-import { mockedCurrentWeather, commonView } from './utils/testUtils.ts'
+import { mockedCurrentWeather, commonView, mockFetch } from './utils/testUtils.ts'
 import { WeatherView } from '../src/View/WeatherView.ts'
 import { SpiedFunction } from 'jest-mock'
 
@@ -79,19 +79,23 @@ describe('WeatherController', () => {
     expect(mockDisplayError).toHaveBeenCalledWith(mockedError)
   })
 
-  it('fetchWeatherData should call fetchCurrentWeather on facade with imperial if currentSelectedTemperature on view is Fahrenheit', async () => {
-    jest.spyOn(WeatherView.prototype, 'currentSelectedTemperature', 'get').mockReturnValue('Fahrenheit')
-    await sut.fetchWeatherData()
-    expect(mockFetchWeatherData).toHaveBeenCalledWith(cityInput.value, countryCodeInput.value, 'imperial')
-  })
+  expectUnitTypeValue('Fahrenheit', 'imperial')
+  expectUnitTypeValue('Celsius', 'metric')
 
-  it('fetchWeatherData should call fetchCurrentWeather on facade with metric if currentSelectedTemperature on view is Celsius', async () => {
-    jest.spyOn(WeatherView.prototype, 'currentSelectedTemperature', 'get').mockReturnValue('Celsius')
-    await sut.fetchWeatherData()
-    expect(mockFetchWeatherData).toHaveBeenCalledWith(cityInput.value, countryCodeInput.value, 'metric')
-  })
+  /**
+   * Expects a specific unit type value based on the mocked return value.
+   *
+   * @param {string} mockedReturnValue - The mocked return value.
+   * @param {UnitType} expected - The expected return value.
+   */
+  function expectUnitTypeValue (mockedReturnValue : string, expected : UnitType) {
+    it(`fetchedWeatherData should call fetchCurrentWeather on facade with ${expected} if currentSelectedTemperature on view is ${mockedReturnValue}`, async () => {
+      jest.spyOn(WeatherView.prototype, 'currentSelectedTemperature', 'get').mockReturnValue(mockedReturnValue)
+      await sut.fetchWeatherData()
+      expect(mockFetchWeatherData).toHaveBeenCalledWith(cityInput.value, countryCodeInput.value, expected)
+    })
+  }
 })
-
 /**
  * Verifies that the property is defined on the WeatherController.
  *
