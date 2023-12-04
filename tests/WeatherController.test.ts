@@ -14,6 +14,7 @@ jest.mock('../src/View/WeatherView.ts')
 
 const cityInput = document.createElement('input')
 const countryCodeInput = document.createElement('input')
+const submitButton = document.createElement('button')
 let sut : WeatherController
 
 describe('WeatherController', () => {
@@ -21,7 +22,7 @@ describe('WeatherController', () => {
   let mockRenderCurrentWeather : SpiedFunction<(currentWeather: CurrentWeather) => void>
   let mockDisplayError: SpiedFunction<(errorToDisplay: any) => void>
   beforeAll(() => {
-    sut = new WeatherController(cityInput, countryCodeInput, new LocationService(), new WeatherDataService(), commonView)
+    sut = new WeatherController(submitButton, cityInput, countryCodeInput, new LocationService(), new WeatherDataService(), commonView)
     mockFetchWeatherData = jest.spyOn(WeatherFetcherFacade.prototype, 'fetchCurrentWeather')
     mockRenderCurrentWeather = jest.spyOn(WeatherView.prototype, 'renderCurrentWeatherData')
     mockDisplayError = jest.spyOn(WeatherView.prototype, 'displayError')
@@ -81,6 +82,12 @@ describe('WeatherController', () => {
 
   expectUnitTypeValue('Fahrenheit', 'imperial')
   expectUnitTypeValue('Celsius', 'metric')
+
+  it('clicking submitButton should call fetchWeatherData on controller', async () => {
+    jest.spyOn(sut, 'fetchWeatherData')
+    await submitButton.click()
+    expect(sut.fetchWeatherData).toHaveBeenCalled()
+  })
 
   /**
    * Expects a specific unit type value based on the mocked return value.

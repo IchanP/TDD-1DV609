@@ -14,9 +14,6 @@ const cityInput = document.getElementById('cityname-input') as HTMLInputElement
 const countryCodeInput = document.getElementById('countrycode-input') as HTMLInputElement
 const locationService = new LocationService()
 const dataService = new WeatherDataService()
-const weatherController = new WeatherController(cityInput, countryCodeInput, locationService, dataService, view)
 
 const submitButton = document.getElementById('gofetch-button') as HTMLButtonElement
-submitButton.addEventListener('click', async () => {
-  await weatherController.fetchWeatherData()
-})
+const weatherController = new WeatherController(submitButton, cityInput, countryCodeInput, locationService, dataService, view)

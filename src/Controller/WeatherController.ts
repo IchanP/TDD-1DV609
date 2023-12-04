@@ -12,22 +12,25 @@ export class WeatherController {
   #locationService : ILocationService
   #dataService : WeatherDataService
   #view : WeatherView
+  #submitButton : HTMLButtonElement
   /**
    * Initializes the fields of the class.
    *
+   * @param {HTMLInputElement} submitButton - The button element which triggers the fetch.
    * @param {HTMLInputElement} cityInputElement - The input element for the city name.
    * @param {HTMLInputElement} countryCodeInputElement - The input element for the country code.
    * @param {ILocationServic} locationService - The location service to use.
    * @param {WeatherDataService} weatherDataService - The data service to use.
    * @param {WeatherView} view - The view to use.
    */
-  constructor (cityInputElement : HTMLInputElement, countryCodeInputElement : HTMLInputElement, locationService : ILocationService, weatherDataService : WeatherDataService, view : WeatherView) {
+  constructor (submitButton : HTMLButtonElement, cityInputElement : HTMLInputElement, countryCodeInputElement : HTMLInputElement, locationService : ILocationService, weatherDataService : WeatherDataService, view : WeatherView) {
     this.#cityInput = cityInputElement
     this.#countryCodeInput = countryCodeInputElement
     this.#locationService = locationService
     this.#dataService = weatherDataService
     this.#dataService.addProvider(new WeatherDataProvider())
     this.#view = view
+    this.#submitButton = submitButton
   }
 
   /**
