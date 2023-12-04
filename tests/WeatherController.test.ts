@@ -4,7 +4,7 @@ import { MockWeatherFetcherFacade } from '../src/model/__mocks__/WeatherFetcherF
 import { LocationService } from '../src/model/LocationService.ts'
 import { jest } from '@jest/globals'
 import { WeatherDataService } from '../src/model/WeatherDataService.ts'
-import { mockedCurrentWeather, commonView, mockFetch } from './utils/testUtils.ts'
+import { mockedCurrentWeather, commonView } from './utils/testUtils.ts'
 import { WeatherView } from '../src/View/WeatherView.ts'
 import { SpiedFunction } from 'jest-mock'
 
@@ -71,6 +71,7 @@ describe('WeatherController', () => {
 
   it('fetchWeatherData should call displayError on view with error if facade throws error', async () => {
     const mockedError = new Error()
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     mockFetchWeatherData.mockImplementationOnce(async (cityName: string, countryCode: string) => {
       throw mockedError
       // eslint-disable-next-line no-unreachable
