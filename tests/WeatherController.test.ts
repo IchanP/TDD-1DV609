@@ -83,9 +83,9 @@ describe('WeatherController', () => {
   expectUnitTypeValue('Fahrenheit', 'imperial')
   expectUnitTypeValue('Celsius', 'metric')
 
-  it('clicking submitButton should call fetchWeatherData on controller', async () => {
+  it('clicking submitButton should call fetchWeatherData on controller', () => {
     jest.spyOn(sut, 'fetchWeatherData')
-    await submitButton.click()
+    submitButton.click()
     expect(sut.fetchWeatherData).toHaveBeenCalled()
   })
 

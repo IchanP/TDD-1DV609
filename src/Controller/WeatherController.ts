@@ -31,6 +31,7 @@ export class WeatherController {
     this.#dataService.addProvider(new WeatherDataProvider())
     this.#view = view
     this.#submitButton = submitButton
+    this.#addEventListeners()
   }
 
   /**
@@ -118,5 +119,14 @@ export class WeatherController {
       convertedUnitType = 'metric'
     }
     return convertedUnitType
+  }
+
+  /**
+   * Adds event listener to the submit button.
+   */
+  #addEventListeners () : void {
+    this.#submitButton.addEventListener('click', async () => {
+      await this.fetchWeatherData()
+    })
   }
 }
