@@ -16,6 +16,7 @@ describe('WeatherDataService', () => {
     expect(isCurrentWeather(actual)).toBe(true)
   })
   it('fetchCUrrentWeatherData should call WeatherDataProvider with passed argument', () => {
+    // REVIEW - Here the fetchCurrentWeatherData is turned into a spy as it's used to check whether it was called.
     const mockedFetchCurrentWeatherData = jest.spyOn(WeatherDataProvider.prototype, 'fetchCurrentWeatherData')
     sut.fetchCurrentWeatherData(placeHolderLocationData)
     expect(mockedFetchCurrentWeatherData).toHaveBeenCalledWith(placeHolderLocationData)

@@ -1,5 +1,6 @@
 import { WeatherView } from '../../src/View/WeatherView'
 
+// REVIEW - Here I am actually creating a stub as I am creating a predefined response.
 /**
  * Mocks the fetch function.
  *
