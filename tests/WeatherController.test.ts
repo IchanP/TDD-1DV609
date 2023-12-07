@@ -71,6 +71,10 @@ describe('WeatherController', () => {
 
   it('fetchWeatherData should call displayError on view with error if facade throws error', async () => {
     const mockedError = new Error()
+
+    // REVIEW - Shows how fetchWeatherData is isolated from the facade
+    // mockDisplayError is then checked to have been called showing how mocks is used to test behavior.
+
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     mockFetchWeatherData.mockImplementationOnce(async (cityName: string, countryCode: string) => {
       throw mockedError
